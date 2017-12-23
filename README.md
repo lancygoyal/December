@@ -21,9 +21,6 @@ npm start
 
     .
     ├── api                    # Rest api's folder
-    │   ├── v1
-    │   |  └── user            # User routes
-    │   |  └── index.js
     ├── config                 # Config Folder
     ├── controllers            # Controllers Folder For Api's
     ├── collections            # Collections Folder
@@ -33,10 +30,17 @@ npm start
     ├── main.js                # Main server file initiating hapi server
     └── package.json           # Node dependencies
 
+### Features
+
+- [x] User Can signin and signup.
+- [x] Non-profit can list items and Donate them.
+- [x] Donors can contribute.
+
 ### Todo
+
 - [x] Solution Architecture
 - [x] DB Models
-- [ ] REST API Endpoints
+- [x] REST API Endpoints
 - [ ] UI design
 - [x] Sample Running code
 - [ ] Capacity Planning
