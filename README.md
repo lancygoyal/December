@@ -36,7 +36,7 @@ npm start
 ### Todo
 - [x] Solution Architecture
 - [x] DB Models
-- [-] REST API Endpoints
+- [ ] REST API Endpoints
 - [ ] UI design
 - [x] Sample Running code
 - [ ] Capacity Planning
