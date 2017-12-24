@@ -42,5 +42,6 @@ export default {
   userNotVerified: "You haven't verify your account. Please verify to proceed.",
   userBlocked: 'Your account has been blocked by Admin. Please contact admin for further queries.',
   verifyTokenSuccess: 'Your email has been successfully verified.',
-  verifyTokenExpired: 'Token has been expired.'
+  verifyTokenExpired: 'Token has been expired.',
+  itemAdded: 'Item added successfully.'
 };

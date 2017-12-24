@@ -35,7 +35,6 @@ class ContributeClass {
 const ContributeSchema = new Schema({
   itemId: { type: String, required: true },
   contributeBy: { type: String, required: true },
-  contributeType: { type: Number, required: true },
   quantity: { type: Number, default: 0 },
   isPicked: { type: Boolean, default: false },
   createdAt: { type: Number, default: getTimeStamp },
@@ -44,4 +43,4 @@ const ContributeSchema = new Schema({
 
 ContributeSchema.loadClass(ContributeClass);
 
-export default Mongoose.model('Contribute', UserSchema);
+export default Mongoose.model('Contribute', ContributeSchema);

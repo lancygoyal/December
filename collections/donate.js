@@ -19,7 +19,6 @@ class DonateClass {
 const DonateSchema = new Schema({
   itemId: { type: String, required: true },
   info: { type: String, default: '' },
-  donateType: { type: Number, required: true },
   quantity: { type: Number, default: 0 },
   createdAt: { type: Number, default: getTimeStamp },
   updatedAt: { type: Number, default: getTimeStamp }
@@ -27,4 +26,4 @@ const DonateSchema = new Schema({
 
 DonateSchema.loadClass(DonateClass);
 
-export default Mongoose.model('Donate', UserSchema);
+export default Mongoose.model('Donate', DonateSchema);

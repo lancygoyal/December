@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { loginUser } from '../../../controllers/user';
-import { failActionJoi } from '../../../utilities/rest';
 
 export default {
   method: 'POST',
@@ -10,7 +9,7 @@ export default {
     description: 'Api service used to login user.',
     notes:
       '<br/>The request object should contain following fields in its <b>Payload/Body</b> object<br/>&bull;<b> Email</b>: Should be a valid email or valid phone number (10 digit with max 4 digit country code). <br/>&bull;<b> Password</b>: Containing atleast one alphabet and one number, 6 - 8 characters.',
-    tags: ['api', 'user'],
+    tags: ['api'],
     validate: {
       payload: {
         email: Joi.string()

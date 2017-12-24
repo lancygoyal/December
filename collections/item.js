@@ -8,23 +8,17 @@ import { getTimeStamp } from '../utilities/universal';
 const Schema = Mongoose.Schema;
 
 class ItemClass {
-  static getMyItems(createdBy) {
-    return this.find({ createdBy, isDeleted: false });
+  static getItems(createdBy) {
+    return this.find({ createdBy, isDeleted: false }).select({ isDeleted: 0, __v: 0 });
   }
-  static getItems(name, category) {
+  static searchItems(name, category) {
     let selector = { isDeleted: false };
     if (name) selector.name = { $regex: name };
     if (category) selector.category = category;
     return this.find(selector);
   }
-  static getItem(itemId) {
-    return this.findOne({ _id: itemId, isDeleted: false });
-  }
   static addItem(payload) {
     return this(payload).save();
-  }
-  static getCategories() {
-    return this.find({ isDeleted: false });
   }
   static collectItem(itemId, quantity) {
     let updateData = {
@@ -85,4 +79,4 @@ const ItemSchema = new Schema({
 
 ItemSchema.loadClass(ItemClass);
 
-export default Mongoose.model('Item', UserSchema);
+export default Mongoose.model('Item', ItemSchema);

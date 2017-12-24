@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import { registerUser } from '../../../controllers/user';
-import { failActionJoi } from '../../../utilities/rest';
 
 export default {
   method: 'POST',
@@ -10,12 +9,12 @@ export default {
     description: 'Api service used to register a new user.',
     notes:
       '<br/>The request object should contain following fields in its <b>Payload/Body</b> object<br/>&bull; <b>Full Name</b>: Should carry the Full name of the user. This is a required field.<br/>&bull;<b> Email</b>: Should be a valid email.<br/>&bull;<b> Password</b>: Containing atleast one alphabet and one number, 6 - 8 characters.<br/>&bull;<b> Role</b>: Should contains user role like business,user,admin.',
-    tags: ['api', 'user'],
+    tags: ['api'],
     validate: {
       payload: {
         fullName: Joi.string()
           .trim()
-          .min(1)
+          .min(2)
           .max(20)
           .label('Full Name'),
         email: Joi.string()
@@ -42,7 +41,7 @@ export default {
           .required()
           .trim()
           .label('Role')
-          .valid('user', 'business', 'admin')
+          .valid('user', 'business')
       }
     }
   },
