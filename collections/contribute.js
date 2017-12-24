@@ -8,19 +8,30 @@ import { getTimeStamp } from '../utilities/universal';
 const Schema = Mongoose.Schema;
 
 class ContributeClass {
-  static getMyContribution(contributeBy) {
-    return this.find({ contributeBy });
+  static get(contriId) {
+    return this.findById(contriId)
+      .select({ itemId: 1, quantity: 1, isPicked: 1 })
+      .populate('itemId', 'category createdBy');
   }
-  static getMyItemContribution(contributeId) {
-    return this.findOne(contributeId);
+  static getContri(itemId) {
+    return this.find({ itemId })
+      .select({ itemId: 0, __v: 0 })
+      .populate('contributeBy', '-_id fullName email');
   }
-  static getItemContribution(itemId) {
-    return this.find({ itemId });
+  static myContributions(contributeBy) {
+    return this.find({ contributeBy })
+      .select({ __v: 0 })
+      .populate({
+        path: 'itemId',
+        select: '-_id name category info location createdBy',
+        populate: { path: 'createdBy', select: '-_id fullName email' }
+      })
+      .populate('contributeBy', '-_id fullName email');
   }
-  static contributeItem(payload) {
+  static contri(payload) {
     return this(payload).save();
   }
-  static pickupItem(itemId) {
+  static pickupItem(contriId) {
     let updateData = {
       $set: {
         isPicked: true,
@@ -28,14 +39,14 @@ class ContributeClass {
       }
     };
 
-    return this.findByIdAndUpdate(itemId, updateData, { new: true });
+    return this.findByIdAndUpdate(contriId, updateData, { new: true });
   }
 }
 
 const ContributeSchema = new Schema({
-  itemId: { type: String, required: true },
-  contributeBy: { type: String, required: true },
-  quantity: { type: Number, default: 0 },
+  itemId: { type: String, required: true, ref: 'Item' },
+  contributeBy: { type: String, required: true, ref: 'User' },
+  quantity: { type: Number, required: true },
   isPicked: { type: Boolean, default: false },
   createdAt: { type: Number, default: getTimeStamp },
   updatedAt: { type: Number, default: getTimeStamp }

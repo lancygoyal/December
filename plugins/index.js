@@ -63,7 +63,7 @@ export default [
       path: '/api/docs',
       authorization: {
         field: 'authorization',
-        scope: 'header', // header works as well
+        scope: 'header' // header works as well
         // valuePrefix: 'bearer '// prefix incase
         // defaultValue: 'token',
         // placeholder: 'Enter your authorization token here'

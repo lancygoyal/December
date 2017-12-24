@@ -27,29 +27,19 @@ class ItemClass {
     if (category) selector.category = category;
     return this.find(selector).select({ isDeleted: 0, __v: 0 });
   }
-  static collectItem(itemId, quantity) {
+  static collect(itemId, category, quantity) {
     let updateData = {
-      $add: { itemCollected: quantity },
+      $inc: category === 'goods' ? { itemCollected: quantity } : { moneyCollected: quantity },
       $set: {
         updatedAt: getTimeStamp()
       }
     };
 
-    return this.findAndUpdate({ _id: itemId, isDeleted: false }, updateData, { new: true });
+    return this.findByIdAndUpdate(itemId, updateData, { new: true });
   }
   static donateItem(itemId, quantity) {
     let updateData = {
       $sub: { itemDonated: quantity },
-      $set: {
-        updatedAt: getTimeStamp()
-      }
-    };
-
-    return this.findAndUpdate({ _id: itemId, isDeleted: false }, updateData, { new: true });
-  }
-  static collectMoney(itemId, quantity) {
-    let updateData = {
-      $add: { moneyCollected: quantity },
       $set: {
         updatedAt: getTimeStamp()
       }
