@@ -21,6 +21,9 @@ class ItemClass {
       .select({ isDeleted: 0, __v: 0 })
       .populate('createdBy', '-_id fullName email');
   }
+  static getItemInfo(itemId) {
+    return this.findOne({ _id: itemId, isDeleted: false });
+  }
   static searchItems(name, category) {
     let selector = { isDeleted: false };
     if (name) selector.name = name;
@@ -39,7 +42,7 @@ class ItemClass {
   }
   static donateItem(itemId, category, quantity) {
     let updateData = {
-      $inc: category === 'goods' ? { itemDonated: -quantity } : { moneyDonated: -quantity },
+      $inc: category === 'goods' ? { itemDonated: quantity } : { moneyDonated: quantity },
       $set: {
         updatedAt: getTimeStamp()
       }

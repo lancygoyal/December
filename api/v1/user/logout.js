@@ -9,7 +9,7 @@ export default {
     description: 'Api service used for logging the user out of the application.',
     notes:
       'The request object should contain following fields in its <b>Headers</b> object<br/>&bull; <b>x-logintoken</b>: The token assigned to the user after successful login',
-    tags: ['api'],
+    tags: ['api', 'user'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()

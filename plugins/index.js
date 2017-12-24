@@ -41,13 +41,30 @@ export default [
   {
     plugin: Swagger,
     options: {
-      tags: {
-        api: Pack.description
-      },
       info: {
         title: Pack.name,
         description: Pack.description,
-        version: Pack.version
+        version: Pack.version,
+        contact: {
+          name: Pack.author,
+          url: Pack.url,
+          email: `${Pack.author} <${Pack.email}>`
+        },
+        license: {
+          name: Pack.license,
+          url: Pack.homepage
+        }
+      },
+      tagging: {
+        mode: 'tags',
+        stripRequiredTags: true
+      },
+      tags: {
+        // api: Pack.description,
+        user: 'user rest endpoints',
+        item: 'item rest endpoints',
+        contribute: 'contribution rest endpoints',
+        donate: 'donation rest endpoints'
       }
     }
   },
@@ -69,7 +86,7 @@ export default [
         // placeholder: 'Enter your authorization token here'
       },
       swaggerOptions: {
-        docExpansion: 'list'
+        // docExpansion: 'list'
       }
     }
   },

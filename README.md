@@ -1,6 +1,6 @@
 ## December
 
-Hapi and Node Project For Scaleable Apps.
+Powered by Node and Hapi.
 
 ### Includes
 

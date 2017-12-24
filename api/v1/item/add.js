@@ -9,7 +9,7 @@ export default {
     description: 'Api service used to add a new item.',
     notes:
       '<br/>The request object should contain following fields in its <b>Payload/Body</b> object',
-    tags: ['api'],
+    tags: ['api', 'item'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()

@@ -46,6 +46,6 @@ export default {
   contriAdded: 'Contri added successfully.',
   itemDonated: 'Item donated successfully.',
   itemLeft: function(num, category) {
-    return `Carefull! ${num} ${category} Left.`;
+    return `Carefully! ${num} ${category} Left.`;
   }
 };

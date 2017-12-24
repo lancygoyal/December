@@ -9,7 +9,7 @@ export default {
     description: 'Api service used to donate a new item.',
     notes:
       '<br/>The request object should contain following fields in its <b>Payload/Body</b> object',
-    tags: ['api'],
+    tags: ['api', 'donate'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()
@@ -22,6 +22,7 @@ export default {
       payload: {
         quantity: Joi.number()
           .required()
+          .min(1)
           .label('Item Quantity'),
         detail: Joi.string()
           .trim()

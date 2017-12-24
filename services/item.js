@@ -19,6 +19,10 @@ export const get = async payload => {
   return await Item.getItem(payload.itemId);
 };
 
+export const getItemInfo = async payload => {
+  return await Item.getItemInfo(payload.itemId);
+};
+
 export const search = async payload => {
   let name = payload.text && payload.text != '' ? Universal.buildRegExp(payload.text) : null,
     category = payload.category && payload.category != '' ? payload.category : null;

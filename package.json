@@ -1,7 +1,7 @@
 {
   "name": "December",
   "version": "1.0.0",
-  "description": "Hapi and Node Project For Scaleable Apps",
+  "description": "Powered by Node and Hapi.",
   "engines": {
     "node": ">=8.9.0"
   },
@@ -72,5 +72,8 @@
       "prettier --write \"**/*.json\" \"**/*.js\" \"config/**/*.json\" \"collections/**/*.js\" \"controllers/**/*.js\" \"plugins/**/*.js\" \"routes/**/*.js\" \"services/**/*.js\" \"utilities/**/*.js\""
   },
   "author": "Lancy Goyal",
+  "email": "i.lancygoyal@gmail.com",
+  "url": "https://lancygoyal.github.io",
+
   "license": "MIT"
 }

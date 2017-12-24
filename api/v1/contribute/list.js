@@ -8,7 +8,7 @@ export default {
     auth: 'jwt',
     description: 'Api service used to get users contri list.',
     notes: '<br/>The request object should contain following fields in its <b>Headers</b> object',
-    tags: ['api'],
+    tags: ['api', 'contribute'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()

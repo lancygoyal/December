@@ -5,10 +5,10 @@
 import Donate from '../collections/donate';
 import Messages from '../utilities/messages';
 // import * as Universal from '../utilities/universal';
-import { get as getItem, donate as donateItem } from './item';
+import { getItemInfo, donate as donateItem } from './item';
 
 export const donate = async payload => {
-  const itemData = await getItem(payload);
+  const itemData = await getItemInfo(payload);
   if (itemData.createdBy != payload.user._id) throw new Error(Messages.unauthorizedUser);
   let itemRemains =
     itemData.category === 'goods'
@@ -19,11 +19,11 @@ export const donate = async payload => {
   delete payload.user;
   await Donate.donateItem(payload);
   await donateItem({ ...payload, itemId: itemData });
-  return { itemRemains };
+  return { itemLeft: itemRemains - payload.quantity };
 };
 
 export const getItemDonations = async payload => {
-  const itemData = await getItem(payload);
+  const itemData = await getItemInfo(payload);
   if (itemData.createdBy != payload.user._id) throw new Error(Messages.unauthorizedUser);
-  return await Contribute.getDonationByItem(payload.itemId);
+  return await Donate.getDonationByItem(payload.itemId);
 };

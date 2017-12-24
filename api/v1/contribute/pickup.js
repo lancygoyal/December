@@ -2,14 +2,14 @@ import Joi from 'joi';
 import { pickupContri } from '../../../controllers/contribute';
 
 export default {
-  method: 'POST',
+  method: 'PUT',
   path: '/api/v1/contribute/{contriId}/pickup',
   config: {
     auth: 'jwt',
     description: 'Api service used to pickup contributed item.',
     notes:
       '<br/>The request object should contain following fields in its <b>Payload/Body</b> object',
-    tags: ['api'],
+    tags: ['api', 'contribute'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()

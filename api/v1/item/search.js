@@ -8,7 +8,7 @@ export default {
     auth: 'jwt',
     description: 'Api service used to search items.',
     notes: '<br/>The request object should contain following fields in its <b>Headers</b> object',
-    tags: ['api'],
+    tags: ['api', 'item'],
     validate: {
       headers: Joi.object({
         authorization: Joi.string()
