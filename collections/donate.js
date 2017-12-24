@@ -8,8 +8,8 @@ import { getTimeStamp } from '../utilities/universal';
 const Schema = Mongoose.Schema;
 
 class DonateClass {
-  static getItemDonation(itemId) {
-    return this.find({ itemId });
+  static getDonationByItem(itemId) {
+    return this.find({ itemId }).select({ __v: 0 });
   }
   static donateItem(payload) {
     return this(payload).save();
@@ -17,8 +17,8 @@ class DonateClass {
 }
 
 const DonateSchema = new Schema({
-  itemId: { type: String, required: true },
-  info: { type: String, default: '' },
+  itemId: { type: String, required: true, ref: 'Item' },
+  detail: { type: String, required: true },
   quantity: { type: Number, default: 0 },
   createdAt: { type: Number, default: getTimeStamp },
   updatedAt: { type: Number, default: getTimeStamp }

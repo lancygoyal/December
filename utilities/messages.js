@@ -5,9 +5,6 @@
 export default {
   accept: 'Accepted',
   confirm: 'Confirmed',
-  say: function(text) {
-    return `Hello ${text}`;
-  },
   systemError: 'Technical error ! Please try again later.',
   userNameAlreadyExists: 'This Username is already registered.',
   emailAlreadyExists: 'This Email is already registered.',
@@ -46,5 +43,9 @@ export default {
   itemAdded: 'Item added successfully.',
   itemPicked: 'Item picked successfully.',
   itemAlreadyPicked: 'Item already picked.',
-  contriAdded: 'Contri added successfully.'
+  contriAdded: 'Contri added successfully.',
+  itemDonated: 'Item donated successfully.',
+  itemLeft: function(num, category) {
+    return `Carefull! ${num} ${category} Left.`;
+  }
 };

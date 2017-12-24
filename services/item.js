@@ -26,5 +26,9 @@ export const search = async payload => {
 };
 
 export const collect = async payload => {
-  return await Item.collect(payload.itemId._id, payload.itemId.category, payload.quantity);
+  return await Item.collectItem(payload.itemId._id, payload.itemId.category, payload.quantity);
+};
+
+export const donate = async payload => {
+  return await Item.donateItem(payload.itemId, payload.itemId.category, payload.quantity);
 };

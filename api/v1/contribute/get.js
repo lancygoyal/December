@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { getContri } from '../../../controllers/contribute';
+import { getContriByItem } from '../../../controllers/contribute';
 
 export default {
   method: 'GET',
@@ -20,5 +20,5 @@ export default {
       })
     }
   },
-  handler: getContri
+  handler: getContriByItem
 };

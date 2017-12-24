@@ -13,7 +13,7 @@ class ContributeClass {
       .select({ itemId: 1, quantity: 1, isPicked: 1 })
       .populate('itemId', 'category createdBy');
   }
-  static getContri(itemId) {
+  static getContriByItem(itemId) {
     return this.find({ itemId })
       .select({ itemId: 0, __v: 0 })
       .populate('contributeBy', '-_id fullName email');

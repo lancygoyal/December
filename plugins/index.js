@@ -60,7 +60,7 @@ export default [
     plugin: SwaggerUI,
     options: {
       title: Pack.name,
-      path: '/api/docs',
+      // path: '/api/docs',
       authorization: {
         field: 'authorization',
         scope: 'header' // header works as well
@@ -122,13 +122,13 @@ export default [
   {
     plugin: Rest,
     options: {}
-  },
+  }
 
   /* ---------------------------
         Init the index route.
       ---------------------------- */
-  {
-    plugin: Main,
-    options: {}
-  }
+  // {
+  //   plugin: Main,
+  //   options: {}
+  // }
 ];

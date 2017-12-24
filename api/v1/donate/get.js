@@ -1,12 +1,12 @@
 import Joi from 'joi';
-import { listContri } from '../../../controllers/contribute';
+import { getDonationByItem } from '../../../controllers/donate';
 
 export default {
   method: 'GET',
-  path: '/api/v1/contribute/list',
+  path: '/api/v1/donate/{itemId}',
   config: {
     auth: 'jwt',
-    description: 'Api service used to get users contri list.',
+    description: 'Api service used to get item donations.',
     notes: '<br/>The request object should contain following fields in its <b>Headers</b> object',
     tags: ['api'],
     validate: {
@@ -14,8 +14,11 @@ export default {
         authorization: Joi.string()
           .trim()
           .required()
-      }).options({ allowUnknown: true })
+      }).options({ allowUnknown: true }),
+      params: Joi.object({
+        itemId: Joi.string().required()
+      })
     }
   },
-  handler: listContri
+  handler: getDonationByItem
 };

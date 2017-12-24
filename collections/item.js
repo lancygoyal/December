@@ -27,7 +27,7 @@ class ItemClass {
     if (category) selector.category = category;
     return this.find(selector).select({ isDeleted: 0, __v: 0 });
   }
-  static collect(itemId, category, quantity) {
+  static collectItem(itemId, category, quantity) {
     let updateData = {
       $inc: category === 'goods' ? { itemCollected: quantity } : { moneyCollected: quantity },
       $set: {
@@ -37,25 +37,15 @@ class ItemClass {
 
     return this.findByIdAndUpdate(itemId, updateData, { new: true });
   }
-  static donateItem(itemId, quantity) {
+  static donateItem(itemId, category, quantity) {
     let updateData = {
-      $sub: { itemDonated: quantity },
+      $inc: category === 'goods' ? { itemDonated: -quantity } : { moneyDonated: -quantity },
       $set: {
         updatedAt: getTimeStamp()
       }
     };
 
-    return this.findAndUpdate({ _id: itemId, isDeleted: false }, updateData, { new: true });
-  }
-  static donateMoney(itemId, quantity) {
-    let updateData = {
-      $add: { moneyDonated: quantity },
-      $set: {
-        updatedAt: getTimeStamp()
-      }
-    };
-
-    return this.findAndUpdate({ _id: itemId, isDeleted: false }, updateData, { new: true });
+    return this.findByIdAndUpdate(itemId, updateData, { new: true });
   }
 }
 
@@ -65,8 +55,8 @@ const ItemSchema = new Schema({
   info: { type: String, default: '' },
   location: { type: String, required: true },
   itemCollected: { type: Number, default: 0 },
-  itemDonated: { type: Number, default: 0 },
   moneyCollected: { type: Number, default: 0 },
+  itemDonated: { type: Number, default: 0 },
   moneyDonated: { type: Number, default: 0 },
   createdBy: { type: String, required: true, ref: 'User' },
   isDeleted: { type: Boolean, default: false },

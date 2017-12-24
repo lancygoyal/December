@@ -5,9 +5,9 @@
 import Contribute from '../collections/contribute';
 import Messages from '../utilities/messages';
 // import * as Universal from '../utilities/universal';
-import { get as getItem, collect } from './item';
+import { collect } from './item';
 
-export const contri = async payload => {
+export const contriItem = async payload => {
   await Contribute.contri(payload);
   return;
 };
@@ -21,10 +21,8 @@ export const pickup = async payload => {
   return;
 };
 
-export const get = async payload => {
-  const contries = await Contribute.getContri(payload.itemId),
-    data = await getItem(payload);
-  return { ...data, list: contries };
+export const getItemContri = async payload => {
+  return await Contribute.getContriByItem(payload.itemId);
 };
 
 export const list = async payload => {

@@ -2,7 +2,7 @@
    * @ description : This is the contribute controller layer.
 ----------------------------------------------------------------------- */
 
-import { contri, pickup, get, list } from '../services/contribute';
+import { contriItem, pickup, getItemContri, list } from '../services/contribute';
 import { failAction, successAction } from '../utilities/rest';
 import Messages from '../utilities/messages';
 // import logger from '../utilities/logger';
@@ -10,7 +10,7 @@ import Messages from '../utilities/messages';
 export const addContri = async (request, h) => {
   const { auth: { credentials: { user } }, params, payload } = request;
   try {
-    const data = await contri({ ...payload, ...params, contributeBy: user._id });
+    const data = await contriItem({ ...payload, ...params, contributeBy: user._id });
     return successAction(data, Messages.contriAdded);
   } catch (error) {
     failAction(error.message);
@@ -28,10 +28,10 @@ export const pickupContri = async (request, h) => {
   }
 };
 
-export const getContri = async (request, h) => {
+export const getContriByItem = async (request, h) => {
   const { params } = request;
   try {
-    const data = await get(params);
+    const data = await getItemContri(params);
     return successAction(data);
   } catch (error) {
     failAction(error.message);
