@@ -34,3 +34,9 @@ export const generateToken = data =>
   jwt.sign(data, config.app.jwtKey, { algorithm: config.app.jwtAlgo, expiresIn: '90d' });
 
 export const decodeToken = token => jwt.verify(token, config.app.jwtKey);
+
+export const buildRegExp = (text, exact = false) => {
+  if (exact) return new RegExp('^' + text.trim() + '$', 'i');
+  let parts = text.trim().split(/[ \-\:]+/);
+  return new RegExp('(' + parts.join('|') + ')', 'ig');
+};
