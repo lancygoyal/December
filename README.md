@@ -4,7 +4,7 @@ Powered by Node and Hapi.
 
 ### Includes
 
-- Node
+- Node 8.9.0
 - Hapi v17
 - Swagger
 - Mongoose
@@ -41,6 +41,6 @@ npm start
 - [x] Solution Architecture
 - [x] DB Models
 - [x] REST API Endpoints
-- [ ] UI design
+- [X] UI design (Swagger Integrated)
 - [x] Sample Running code
-- [ ] Capacity Planning
+- [x] Capacity Planning
