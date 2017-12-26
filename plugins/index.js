@@ -64,7 +64,8 @@ export default [
         user: 'user rest endpoints',
         item: 'item rest endpoints',
         contribute: 'contribution rest endpoints',
-        donate: 'donation rest endpoints'
+        donate: 'donation rest endpoints',
+        util: 'util endpoints'
       }
     }
   },
