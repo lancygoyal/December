@@ -1,15 +1,39 @@
 {
   "name": "Web",
   "version": "1.0.0",
+  "description": "Powered by React and Redux.",
   "dependencies": {
+    "axios": "^0.17.1",
+    "history": "^4.7.2",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-content-loader": "^1.7.3",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-loaders": "^3.0.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.4.0",
+    "redux-persist-transform-encrypt": "^2.0.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "loaders.css": "^0.1.2",
+    "redux-devtools-extension": "^2.13.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "reinstall": "rm -rf node_modules && npm install",
+    "rp": "prettier --write \"**/*.json\" \"**/*.js\""
+  },
+  "author": "Lancy Goyal",
+  "email": "i.lancygoyal@gmail.com",
+  "url": "https://lancygoyal.github.io",
+  "license": "MIT"
 }

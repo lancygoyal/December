@@ -700,7 +700,8 @@ if (typeof jQuery === 'undefined') {
 
     if (!$.support.transition) return complete.call(this);
 
-    this.$element[dimension](0)
+    this.$element
+      [dimension](0)
       .one('bsTransitionEnd', $.proxy(complete, this))
       .emulateTransitionEnd(Collapse.TRANSITION_DURATION);
   };

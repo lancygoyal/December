@@ -3159,8 +3159,7 @@
             event.data = handleObj.data;
             event.handleObj = handleObj;
 
-            ret = (
-              (jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler
+            ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler
             ).apply(matched.elem, args);
 
             if (ret !== undefined) {
@@ -3763,8 +3762,7 @@
   });
 
   jQuery.each(
-    (
-      'blur focus focusin focusout load resize scroll unload click dblclick ' +
+    ('blur focus focusin focusout load resize scroll unload click dblclick ' +
       'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave ' +
       'change select submit keydown keypress keyup error contextmenu'
     ).split(' '),
@@ -7785,7 +7783,6 @@
                 // inject the contents of the document in, removing the scripts
                 // to avoid any 'Permission Denied' errors in IE
                 .append(responseText.replace(rscript, ''))
-
                 // Locate the specified elements
                 .find(selector)
             : // If not, just inject the full result
@@ -9347,7 +9344,6 @@
         this.filter(isHidden)
           .css('opacity', 0)
           .show()
-
           // animate to the value specified
           .end()
           .animate({ opacity: to }, speed, easing, callback)

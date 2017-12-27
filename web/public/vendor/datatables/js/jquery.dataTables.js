@@ -6897,16 +6897,19 @@
    * Get the current page index.
    *
    * @return {integer} Current page index (zero based)
-   */ _api_register('page()', function(action) {
-    if (action === undefined) {
-      return this.page.info().page; // not an expensive call
-    }
+   */ _api_register(
+    'page()',
+    function(action) {
+      if (action === undefined) {
+        return this.page.info().page; // not an expensive call
+      }
 
-    // else, have an action to take on all tables
-    return this.iterator('table', function(settings) {
-      _fnPageChange(settings, action);
-    });
-  });
+      // else, have an action to take on all tables
+      return this.iterator('table', function(settings) {
+        _fnPageChange(settings, action);
+      });
+    }
+  );
 
   /**
    * Paging information for the first table in the current context.
@@ -6959,19 +6962,22 @@
    *
    * @return {integer} Current page length. Note `-1` indicates that all records
    *   are to be shown.
-   */ _api_register('page.len()', function(len) {
-    // Note that we can't call this function 'length()' because `length`
-    // is a Javascript property of functions which defines how many arguments
-    // the function expects.
-    if (len === undefined) {
-      return this.context.length !== 0 ? this.context[0]._iDisplayLength : undefined;
-    }
+   */ _api_register(
+    'page.len()',
+    function(len) {
+      // Note that we can't call this function 'length()' because `length`
+      // is a Javascript property of functions which defines how many arguments
+      // the function expects.
+      if (len === undefined) {
+        return this.context.length !== 0 ? this.context[0]._iDisplayLength : undefined;
+      }
 
-    // else, set the page length
-    return this.iterator('table', function(settings) {
-      _fnLengthChange(settings, len);
-    });
-  });
+      // else, set the page length
+      return this.iterator('table', function(settings) {
+        _fnLengthChange(settings, len);
+      });
+    }
+  );
 
   var __reload = function(settings, holdPosition, callback) {
     // Use the draw event to trigger a callback
@@ -7065,31 +7071,34 @@
    * table in the current context.
    *
    * @return {string} Current Ajax source URL
-   */ _api_register('ajax.url()', function(url) {
-    var ctx = this.context;
+   */ _api_register(
+    'ajax.url()',
+    function(url) {
+      var ctx = this.context;
 
-    if (url === undefined) {
-      // get
-      if (ctx.length === 0) {
-        return undefined;
+      if (url === undefined) {
+        // get
+        if (ctx.length === 0) {
+          return undefined;
+        }
+        ctx = ctx[0];
+
+        return ctx.ajax ? ($.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax) : ctx.sAjaxSource;
       }
-      ctx = ctx[0];
 
-      return ctx.ajax ? ($.isPlainObject(ctx.ajax) ? ctx.ajax.url : ctx.ajax) : ctx.sAjaxSource;
+      // set
+      return this.iterator('table', function(settings) {
+        if ($.isPlainObject(settings.ajax)) {
+          settings.ajax.url = url;
+        } else {
+          settings.ajax = url;
+        }
+        // No need to consider sAjaxSource here since DataTables gives priority
+        // to `ajax` over `sAjaxSource`. So setting `ajax` here, renders any
+        // value of `sAjaxSource` redundant.
+      });
     }
-
-    // set
-    return this.iterator('table', function(settings) {
-      if ($.isPlainObject(settings.ajax)) {
-        settings.ajax.url = url;
-      } else {
-        settings.ajax = url;
-      }
-      // No need to consider sAjaxSource here since DataTables gives priority
-      // to `ajax` over `sAjaxSource`. So setting `ajax` here, renders any
-      // value of `sAjaxSource` redundant.
-    });
-  });
+  );
 
   /**
    * Load data from the newly set Ajax URL. Note that this method is only
@@ -8303,11 +8312,6 @@
   }); /**
    * Set the ordering for the table.
    *
-   * @param {array} order 2D array of sorting information to be applied.
-   * @returns {DataTables.Api} this
-   */ /**
-   * Set the ordering for the table.
-   *
    * @param {integer} order Column index to sort upon.
    * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
    * @returns {DataTables.Api} this
@@ -8316,6 +8320,11 @@
    *
    * @param {array} order 1D array of sorting information to be applied.
    * @param {array} [...] Optional additional sorting conditions
+   * @returns {DataTables.Api} this
+   */ /**
+   * Set the ordering for the table.
+   *
+   * @param {array} order 2D array of sorting information to be applied.
    * @returns {DataTables.Api} this
    */
 
@@ -8329,28 +8338,31 @@
    *   the column index that the sorting condition applies to, the second is the
    *   direction of the sort (`desc` or `asc`) and, optionally, the third is the
    *   index of the sorting order from the `column.sorting` initialisation array.
-   */ _api_register('order()', function(order, dir) {
-    var ctx = this.context;
+   */ _api_register(
+    'order()',
+    function(order, dir) {
+      var ctx = this.context;
 
-    if (order === undefined) {
-      // get
-      return ctx.length !== 0 ? ctx[0].aaSorting : undefined;
+      if (order === undefined) {
+        // get
+        return ctx.length !== 0 ? ctx[0].aaSorting : undefined;
+      }
+
+      // set
+      if (typeof order === 'number') {
+        // Simple column / direction passed in
+        order = [[order, dir]];
+      } else if (order.length && !$.isArray(order[0])) {
+        // Arguments passed in (list of 1D arrays)
+        order = Array.prototype.slice.call(arguments);
+      }
+      // otherwise a 2D array was passed in
+
+      return this.iterator('table', function(settings) {
+        settings.aaSorting = order.slice();
+      });
     }
-
-    // set
-    if (typeof order === 'number') {
-      // Simple column / direction passed in
-      order = [[order, dir]];
-    } else if (order.length && !$.isArray(order[0])) {
-      // Arguments passed in (list of 1D arrays)
-      order = Array.prototype.slice.call(arguments);
-    }
-    // otherwise a 2D array was passed in
-
-    return this.iterator('table', function(settings) {
-      settings.aaSorting = order.slice();
-    });
-  });
+  );
 
   /**
    * Attach a sort listener to an element for a given column

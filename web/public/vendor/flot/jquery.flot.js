@@ -2971,9 +2971,7 @@ Licensed under the MIT license.
         } else {
           var ascending = options.legend.sorted != 'descending';
           entries.sort(function(a, b) {
-            return a.label == b.label
-              ? 0
-              : a.label < b.label != ascending ? 1 : -1; // Logical XOR
+            return a.label == b.label ? 0 : a.label < b.label != ascending ? 1 : -1; // Logical XOR
           });
         }
       }

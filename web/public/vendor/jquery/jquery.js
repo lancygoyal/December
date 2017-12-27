@@ -3831,7 +3831,6 @@
   jQuery.fn.ready = function(fn) {
     readyList
       .then(fn)
-
       // Wrap jQuery.readyException in a function so that the lookup
       // happens at the time of error handling instead of callback
       // registration.
@@ -5103,8 +5102,7 @@
             event.handleObj = handleObj;
             event.data = handleObj.data;
 
-            ret = (
-              (jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler
+            ret = ((jQuery.event.special[handleObj.origType] || {}).handle || handleObj.handler
             ).apply(matched.elem, args);
 
             if (ret !== undefined) {
@@ -7110,7 +7108,6 @@
         this.filter(isHiddenWithinTree)
           .css('opacity', 0)
           .show()
-
           // Animate to the value specified
           .end()
           .animate({ opacity: to }, speed, easing, callback)
@@ -8090,8 +8087,7 @@
   });
 
   jQuery.each(
-    (
-      'blur focus focusin focusout resize scroll click dblclick ' +
+    ('blur focus focusin focusout resize scroll click dblclick ' +
       'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave ' +
       'change select submit keydown keypress keyup contextmenu'
     ).split(' '),

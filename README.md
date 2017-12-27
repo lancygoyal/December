@@ -27,6 +27,7 @@ npm start
     ├── plugins                # Plugins Folder
     ├── services               # Services Folder For Api's
     ├── utilities              # Utility Folder
+    ├── web                    # Web Folder
     ├── main.js                # Main server file initiating hapi server
     └── package.json           # Node dependencies
 
