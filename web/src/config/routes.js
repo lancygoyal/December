@@ -10,13 +10,13 @@ export default store => {
   // const state = store.getState();
   // const requireAuth = () => {
   //   if (!state.user.loggedIn) {
-  //     window.location.href = '/';
+  //     window.location.href = '/signin';
   //   }
   // };
   return (
     <div className="wrapper">
       <div className="main-panel">
-        <Route exact={true} path="/" component={Dashboard} />
+        <Route exact path="/" component={Dashboard} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
       </div>

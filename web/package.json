@@ -2,10 +2,12 @@
   "name": "Web",
   "version": "1.0.0",
   "description": "Powered by React and Redux.",
+  "proxy": "http://localhost:3500",
   "dependencies": {
     "axios": "^0.17.1",
     "history": "^4.7.2",
     "prop-types": "^15.6.0",
+    "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-content-loader": "^1.7.3",
     "react-dom": "^16.2.0",

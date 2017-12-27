@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
+  componentWillMount(){
+    if (!this.props.loggedIn) {
+      window.location.href = '/signin';
+    }
+  }
   render() {
     return (
       <div id="wrapper">
@@ -401,3 +408,11 @@ export default class Dashboard extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state.user
+})
+
+export default connect(
+  mapStateToProps
+)(Dashboard)
