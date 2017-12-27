@@ -1,48 +1,25 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Dashboard from '../containers/Dashboard';
-import UserProfile from '../containers/UserProfile';
-// import Footer from '../components/Footer';
+import SignIn from '../containers/SignIn';
+import SignUp from '../containers/SignUp';
 // import Header from '../components/LeftSidebar';
-// import RightSidebar from '../components/RightSidebar';
+// import Sidebar from '../components/Sidebar';
 
 export default store => {
   // const state = store.getState();
-  // /*********** Check authentications ***********/
   // const requireAuth = () => {
   //   if (!state.user.loggedIn) {
   //     window.location.href = '/';
   //   }
   // };
-
   return (
     <div className="wrapper">
       <div className="main-panel">
-        <Route exact={true} path="/dashboard" component={Dashboard} />
-        <Route exact path="/profile" component={UserProfile} />
+        <Route exact={true} path="/" component={Dashboard} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
       </div>
     </div>
   );
 };
-
-// export default store => {
-//   const state = store.getState();
-//   /*********** Check authentications ***********/
-//   const requireAuth = () => {
-//     if (!state.user.loggedIn) {
-//       window.location.href = '/';
-//     }
-//   };
-
-//   return (
-//     <div className="wrapper">
-//       <Header />
-//       <div className="main-panel">
-//         <RightSidebar />
-//         <Route exact={true} path="/dashboard" component={Dashboard} />
-//         <Route exact path="/profile" component={UserProfile} />
-//         <Footer />
-//       </div>
-//     </div>
-//   );
-// };

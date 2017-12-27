@@ -12,10 +12,10 @@ const { persistor, store } = configureStore(history);
 
 export default () => {
   return (
-    <Provider store>
+    <Provider store={store}>
       <PersistGate loading={<Loader loading={true} />} persistor={persistor}>
         <Router history={history}>
-          <Routers store />
+          <Routers {...store} />
         </Router>
       </PersistGate>
     </Provider>
