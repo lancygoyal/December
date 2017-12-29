@@ -1,18 +1,19 @@
 import types from 'redux-types';
 import _ from 'lodash';
 
-export const fetchTypes = ['PENDING', 'SUCCESS', 'ERROR'];
+export const restTypes = ['PENDING', 'SUCCESS', 'ERROR'];
 
 export const crudTypes = ['CREATE', 'EDIT', 'DELETE'];
 
 export const getActionTypes = (action = 'redux', type) => {
-  return types(`@${action}`, _.isArray(type) ? type : fetchTypes);
+  return types(`@${action.toUpperCase()}`, _.isArray(type) ? type : restTypes);
 };
 
 export const getActionCreator = type => {
-  return function(data = {}) {
-    return _.isPlainObject(data) ? { type, ...data } : { type, payload: data };
-  };
+  return payload => ({
+    type,
+    payload
+  });
 };
 
 export const getActionCreators = types => {
@@ -23,34 +24,25 @@ export const getActionCreators = types => {
   return creators;
 };
 
-// export const addTodo = makeActionCreator(ADD_TODO, 'text')
+export const getReducer = (initialState, handlers) => {
+  return (state = initialState, action) => {
+    return handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
+  };
+};
 
-// export function loadPosts(userId) {
-//   return {
-//     // Types of actions to emit before and after
-//     types: ['LOAD_POSTS_REQUEST', 'LOAD_POSTS_SUCCESS', 'LOAD_POSTS_FAILURE'],
-//     // Check the cache (optional):
-//     shouldCallAPI: state => !state.posts[userId],
-//     // Perform the fetching:
-//     callAPI: () => fetch(`http://myapi.com/users/${userId}/posts`),
-//     // Arguments to inject in begin/end actions
-//     payload: { userId }
-//   }
-// }
+export const restMiddleware = ({ dispatch, getState }) => {
+  return next => async action => {
+    const defaultFn = () => true;
+    const { types, callAPI, shouldCallAPI = defaultFn, onLoading, onSuccess, onError } = action;
 
-export function callAPIMiddleware({ dispatch, getState }) {
-  return next => action => {
-    const { types, callAPI, shouldCallAPI = () => true, payload = {} } = action;
+    if (!types) return next(action);
 
-    if (!types) {
-      // Normal action: pass it on
-      return next(action);
-    }
+    const typeKeys = Object.keys(types);
 
     if (
-      !Array.isArray(types) ||
-      types.length !== 3 ||
-      !types.every(type => typeof type === 'string')
+      !Array.isArray(typeKeys) ||
+      typeKeys.length !== 3 ||
+      !typeKeys.every(type => typeof type === 'string')
     ) {
       throw new Error('Expected an array of three string types.');
     }
@@ -59,50 +51,18 @@ export function callAPIMiddleware({ dispatch, getState }) {
       throw new Error('Expected callAPI to be a function.');
     }
 
-    if (!shouldCallAPI(getState())) {
-      return;
-    }
+    if (!shouldCallAPI(getState())) return;
 
-    const [requestType, successType, failureType] = types;
+    dispatch({ type: types.PENDING });
+    if (typeof onLoading === 'function') onLoading(dispatch, getState());
 
-    dispatch(
-      Object.assign({}, payload, {
-        type: requestType
-      })
-    );
-
-    return callAPI().then(
-      response =>
-        dispatch(
-          Object.assign({}, payload, {
-            response,
-            type: successType
-          })
-        ),
-      error =>
-        dispatch(
-          Object.assign({}, payload, {
-            error,
-            type: failureType
-          })
-        )
-    );
-  };
-}
-
-// export const todos = createReducer([], {
-//   [ActionTypes.ADD_TODO](state, action) {
-//     let text = action.text.trim()
-//     return [...state, text]
-//   }
-// })
-
-export function createReducer(initialState, handlers) {
-  return function reducer(state = initialState, action) {
-    if (handlers.hasOwnProperty(action.type)) {
-      return handlers[action.type](state, action);
-    } else {
-      return state;
+    try {
+      let { data } = await callAPI();
+      dispatch({ type: types.SUCCESS, payload: data });
+      if (typeof onSuccess === 'function') onSuccess(dispatch, getState(), data);
+    } catch (e) {
+      dispatch({ type: types.ERROR, payload: e.response.data });
+      if (typeof onError === 'function') onError(dispatch, getState(), e.response.data);
     }
   };
-}
+};

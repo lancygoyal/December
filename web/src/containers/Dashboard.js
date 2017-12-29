@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 class Dashboard extends Component {
   componentWillMount() {
+    console.log('Dashboard', this.props);
     if (!this.props.isLoggedIn) {
       window.location.href = '/signin';
     }

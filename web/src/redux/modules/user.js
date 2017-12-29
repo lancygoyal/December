@@ -1,29 +1,44 @@
 import { push } from 'react-router-redux';
 import RestClient from '../../utilities/rest';
-import { getActionTypes, getActionCreators } from '../../utilities/redux';
+import { getActionTypes, getActionCreators, getReducer } from '../../utilities/redux';
 
 // Types
-const LOGIN = getActionTypes('LOGIN');
+const LoginTypes = getActionTypes('LOGIN');
 
-// Action Creators
-// export const LOGIN = getActionCreators(LOGIN);
+// Actions
+export const LoginActions = getActionCreators(LoginTypes);
+
+// export const login = e => {
+//   e.preventDefault();
+//   return async (dispatch, getState) => {
+//     dispatch(LoginActions.pending());
+//     try {
+//       let { data } = await RestClient.post('user/login', {
+//         email: e.target.email.value,
+//         password: e.target.password.value
+//       });
+//       dispatch(LoginActions.success(data));
+//       dispatch(push('/'));
+//     } catch (e) {
+//       dispatch(LoginActions.error(e.response.data));
+//     }
+//   };
+// };
 
 export const login = e => {
   e.preventDefault();
-  return async (dispatch, getState) => {
-    dispatch({ type: LOGIN.PENDING });
-    try {
-      let { data } = await RestClient.post('user/login', {
+  return {
+    types: LoginTypes,
+    callAPI: () =>
+      RestClient.post('user/login', {
         email: e.target.email.value,
         password: e.target.password.value
-      });
-      dispatch(() => {
-        type: LOGIN.SUCCESS, data;
-      });
+      }),
+    // onLoading: state => {},
+    onSuccess: (dispatch, state, result) => {
       dispatch(push('/'));
-    } catch (e) {
-      dispatch({ type: LOGIN.ERROR, data: e.response.data });
     }
+    // onError: (state, result) => {}
   };
 };
 
@@ -32,26 +47,16 @@ const initialState = {
 };
 
 // Reducers
-export default (state = initialState, { type, data }) => {
-  switch (type) {
-    case LOGIN.PENDING:
-      return initialState;
-
-    case LOGIN.SUCCESS: {
-      return {
-        isLoggedIn: true,
-        ...data
-      };
-    }
-
-    case LOGIN.ERROR: {
-      return {
-        isLoggedIn: false,
-        ...data
-      };
-    }
-
-    default:
-      return state;
-  }
-};
+export default getReducer(initialState, {
+  [LoginTypes.PENDING]: (state, { type, payload }) => ({
+    isLoggedIn: false,
+    ...payload
+  }),
+  [LoginTypes.SUCCESS]: (state, { type, payload }) => ({
+    isLoggedIn: true,
+    ...payload
+  }),
+  [LoginTypes.ERROR]: (state, { type, payload }) => ({
+    isLoggedIn: false
+  })
+});
