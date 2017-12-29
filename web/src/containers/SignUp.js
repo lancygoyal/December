@@ -11,7 +11,7 @@ export default class SignUp extends Component {
                 <h3 className="panel-title">Please Sign In</h3>
               </div>
               <div className="panel-body">
-                <form role="form">
+                <form>
                   <fieldset>
                     <div className="form-group">
                       <input

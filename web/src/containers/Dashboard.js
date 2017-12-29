@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class Dashboard extends Component {
-  componentWillMount(){
-    if (!this.props.loggedIn) {
+  componentWillMount() {
+    if (!this.props.isLoggedIn) {
       window.location.href = '/signin';
     }
   }
@@ -411,8 +411,6 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   ...state.user
-})
+});
 
-export default connect(
-  mapStateToProps
-)(Dashboard)
+export default connect(mapStateToProps)(Dashboard);

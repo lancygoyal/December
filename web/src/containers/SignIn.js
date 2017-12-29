@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as UserActions from "../redux/modules/user";
+import * as UserActions from '../redux/modules/user';
 
 class SignIn extends Component {
   render() {
@@ -14,7 +14,7 @@ class SignIn extends Component {
                 <h3 className="panel-title">Please Sign In</h3>
               </div>
               <div className="panel-body">
-                <form role="form" onSubmit={this.props.login}>
+                <form onSubmit={this.props.login}>
                   <fieldset>
                     <div className="form-group">
                       <input
@@ -33,7 +33,11 @@ class SignIn extends Component {
                         type="password"
                       />
                     </div>
-                    <input className="btn btn-lg btn-success btn-block" type="submit" value="Login" />
+                    <input
+                      className="btn btn-lg btn-success btn-block"
+                      type="submit"
+                      value="Login"
+                    />
                   </fieldset>
                 </form>
               </div>
@@ -47,13 +51,10 @@ class SignIn extends Component {
 
 const mapStateToProps = state => ({
   ...state.user
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(UserActions, dispatch)
-})
+});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

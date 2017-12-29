@@ -1,14 +1,17 @@
 import user from './modules/user';
-import { persistCombineReducers } from 'redux-persist';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/es/storage'; // default: localStorage if web, AsyncStorage if react-native
 import encryptor from './encryptor';
 
-const storeConfig = {
-  key: 'primary',
+const userPersistConfig = {
+  key: 'user',
   storage: storage,
   transforms: [encryptor]
 };
 
-export default persistCombineReducers(storeConfig, {
-  user
+export default combineReducers({
+  user: persistReducer(userPersistConfig, user),
+  router: routerReducer
 });

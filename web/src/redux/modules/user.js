@@ -1,25 +1,54 @@
-import RestClient from '../../utilities/RestClient';
+import { push } from 'react-router-redux';
+import RestClient from '../../utilities/rest';
+import { getActionTypes } from '../../utilities/redux';
+
+// Types
+const LOGIN = getActionTypes('LOGIN');
 
 // Actions
-const LOGIN = 'LOGIN';
-
-//Action creators For Reducers
-export const login = (e) => {
+export const login = e => {
   e.preventDefault();
-  return { type: LOGIN, payload: RestClient.post('user/login', {email:e.target.email.value,password:e.target.password.value}) }
-}
-
-//Reducers
-const initialState = {
-  loggedIn: false,
-  data: {}
+  return async (dispatch, getState) => {
+    dispatch({ type: LOGIN.PENDING });
+    try {
+      let { data } = await RestClient.post('user/login', {
+        email: e.target.email.value,
+        password: e.target.password.value
+      });
+      dispatch(() => {
+        type: LOGIN.SUCCESS, data;
+      });
+      dispatch(push('/'));
+    } catch (e) {
+      dispatch({ type: LOGIN.ERROR, data: e.response.data });
+    }
+  };
 };
 
-export default (state = initialState, action) => {
-  console.log(state, action);
-  switch (action.type) {
-    case LOGIN:
-      return { loggedIn: false };
+const initialState = {
+  isLoggedIn: false
+};
+
+// Reducers
+export default (state = initialState, { type, data }) => {
+  switch (type) {
+    case LOGIN.PENDING:
+      return initialState;
+
+    case LOGIN.SUCCESS: {
+      return {
+        isLoggedIn: true,
+        ...data
+      };
+    }
+
+    case LOGIN.ERROR: {
+      return {
+        isLoggedIn: false,
+        ...data
+      };
+    }
+
     default:
       return state;
   }

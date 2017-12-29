@@ -2,7 +2,7 @@
   "name": "Web",
   "version": "1.0.0",
   "description": "Powered by React and Redux.",
-  "proxy": "http://localhost:3500",
+  "proxy": "http://localhost:3005/",
   "dependencies": {
     "axios": "^0.17.1",
     "history": "^4.7.2",
@@ -18,14 +18,15 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "redux-persist": "^5.4.0",
     "redux-persist-transform-encrypt": "^2.0.0",
-    "redux-promise-middleware": "^5.0.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "loaders.css": "^0.1.2",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-types": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
