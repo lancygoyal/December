@@ -1,22 +1,26 @@
 import types from 'redux-types';
-import Valid from './validation';
+import _ from 'lodash';
 
 export const fetchTypes = ['PENDING', 'SUCCESS', 'ERROR'];
 
 export const crudTypes = ['CREATE', 'EDIT', 'DELETE'];
 
 export const getActionTypes = (action = 'redux', type) => {
-  return types(`@${action}`, Valid.isArray(type) ? type : fetchTypes);
+  return types(`@${action}`, _.isArray(type) ? type : fetchTypes);
 };
 
-export const makeActionCreator = (type, ...argNames) => {
-  return function(...args) {
-    let action = { type };
-    argNames.forEach((arg, index) => {
-      action[argNames[index]] = args[index];
-    });
-    return action;
+export const getActionCreator = type => {
+  return function(data = {}) {
+    return _.isPlainObject(data) ? { type, ...data } : { type, payload: data };
   };
+};
+
+export const getActionCreators = types => {
+  let creators = {};
+  Object.keys(types).forEach(type => {
+    creators = { [type.toLowerCase()]: getActionCreator(types[type]), ...creators };
+  });
+  return creators;
 };
 
 // export const addTodo = makeActionCreator(ADD_TODO, 'text')

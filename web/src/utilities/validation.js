@@ -44,7 +44,5 @@ export default {
   },
   getNumbericValuesFromString: val => {
     return val.match(/^\d+|\d+\b|\d+(?=\w)/g);
-  },
-  isString: arg => typeof arg === 'string' || arg instanceof String,
-  isArray: arg => Array.isArray(arg)
+  }
 };

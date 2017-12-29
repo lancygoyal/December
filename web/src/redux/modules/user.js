@@ -1,11 +1,13 @@
 import { push } from 'react-router-redux';
 import RestClient from '../../utilities/rest';
-import { getActionTypes } from '../../utilities/redux';
+import { getActionTypes, getActionCreators } from '../../utilities/redux';
 
 // Types
 const LOGIN = getActionTypes('LOGIN');
 
-// Actions
+// Action Creators
+// export const LOGIN = getActionCreators(LOGIN);
+
 export const login = e => {
   e.preventDefault();
   return async (dispatch, getState) => {
