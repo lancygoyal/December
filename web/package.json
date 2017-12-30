@@ -5,8 +5,10 @@
   "proxy": "http://localhost:3005/",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.0",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "axios": "^0.17.1",
     "eventemitter4": "^0.2.4",
+    "formsy-react": "^1.1.2",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "material-ui": "^0.20.0",
