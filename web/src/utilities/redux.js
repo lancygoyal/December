@@ -1,12 +1,19 @@
-import types from 'redux-types';
-import _ from 'lodash';
+import eventEmitter from './event';
 
-export const restTypes = ['PENDING', 'SUCCESS', 'ERROR'];
+export const restTypes = ['READY', 'LOADING', 'SUCCESS', 'ERROR'];
 
-export const crudTypes = ['CREATE', 'EDIT', 'DELETE'];
+export const getActionType = (action = 'redux', type = 'default') => ({
+  [type.toUpperCase()]: `@${action}/${type}`.toUpperCase()
+});
 
-export const getActionTypes = (action = 'redux', type) => {
-  return types(`@${action.toUpperCase()}`, _.isArray(type) ? type : restTypes);
+export const getActionTypes = (action, types = restTypes) => {
+  return types.reduce(
+    (result, type) => ({
+      ...getActionType(action, type),
+      ...result
+    }),
+    {}
+  );
 };
 
 export const getActionCreator = type => {
@@ -17,11 +24,13 @@ export const getActionCreator = type => {
 };
 
 export const getActionCreators = types => {
-  let creators = {};
-  Object.keys(types).forEach(type => {
-    creators = { [type.toLowerCase()]: getActionCreator(types[type]), ...creators };
-  });
-  return creators;
+  return Object.keys(types).reduce(
+    (result, type) => ({
+      [type.toLowerCase()]: getActionCreator(types[type]),
+      ...result
+    }),
+    {}
+  );
 };
 
 export const getReducer = (initialState, handlers) => {
@@ -30,10 +39,18 @@ export const getReducer = (initialState, handlers) => {
   };
 };
 
-export const restMiddleware = ({ dispatch, getState }) => {
+export const restMiddleware = store => {
   return next => async action => {
     const defaultFn = () => true;
-    const { types, callAPI, shouldCallAPI = defaultFn, onLoading, onSuccess, onError } = action;
+    const {
+      types,
+      callAPI,
+      shouldCallAPI = defaultFn,
+      onReady,
+      onLoading,
+      onSuccess,
+      onError
+    } = action;
 
     if (!types) return next(action);
 
@@ -41,7 +58,7 @@ export const restMiddleware = ({ dispatch, getState }) => {
 
     if (
       !Array.isArray(typeKeys) ||
-      typeKeys.length !== 3 ||
+      typeKeys.length <= 3 ||
       !typeKeys.every(type => typeof type === 'string')
     ) {
       throw new Error('Expected an array of three string types.');
@@ -51,18 +68,32 @@ export const restMiddleware = ({ dispatch, getState }) => {
       throw new Error('Expected callAPI to be a function.');
     }
 
-    if (!shouldCallAPI(getState())) return;
+    store.dispatch({ type: types.READY });
+    if (typeof onReady === 'function') onReady(store);
+    eventEmitter.emit(types.READY);
 
-    dispatch({ type: types.PENDING });
-    if (typeof onLoading === 'function') onLoading(dispatch, getState());
+    if (!shouldCallAPI(store.getState())) return;
+
+    store.dispatch({ type: types.LOADING });
+    if (typeof onLoading === 'function') onLoading(store);
+    eventEmitter.emit(types.LOADING);
 
     try {
       let { data } = await callAPI();
-      dispatch({ type: types.SUCCESS, payload: data });
-      if (typeof onSuccess === 'function') onSuccess(dispatch, getState(), data);
+      store.dispatch({ type: types.SUCCESS, payload: data });
+      if (typeof onSuccess === 'function') onSuccess(store, data);
+      eventEmitter.emit(types.SUCCESS, data);
     } catch (e) {
-      dispatch({ type: types.ERROR, payload: e.response.data });
-      if (typeof onError === 'function') onError(dispatch, getState(), e.response.data);
+      store.dispatch({ type: types.ERROR, payload: e.response.data });
+      if (typeof onError === 'function') onError(store, e.response.data);
+      eventEmitter.emit(types.ERROR, e.response.data);
     }
+  };
+};
+
+export const on = (eventName, listener) => {
+  eventEmitter.on(eventName, listener);
+  return () => {
+    eventEmitter.removeListener(eventName, listener);
   };
 };

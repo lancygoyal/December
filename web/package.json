@@ -4,9 +4,12 @@
   "description": "Powered by React and Redux.",
   "proxy": "http://localhost:3005/",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.0",
     "axios": "^0.17.1",
+    "eventemitter4": "^0.2.4",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
+    "material-ui": "^0.20.0",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
@@ -26,8 +29,7 @@
   },
   "devDependencies": {
     "loaders.css": "^0.1.2",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-types": "^2.0.3"
+    "redux-devtools-extension": "^2.13.2"
   },
   "scripts": {
     "start": "react-scripts start",
