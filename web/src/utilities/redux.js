@@ -42,15 +42,7 @@ export const getReducer = (initialState, handlers) => {
 export const restMiddleware = store => {
   return next => async action => {
     const defaultFn = () => true;
-    const {
-      types,
-      callAPI,
-      shouldCallAPI = defaultFn,
-      onReady,
-      onLoading,
-      onSuccess,
-      onError
-    } = action;
+    const { types, callAPI, shouldCallAPI = defaultFn, handleAction = defaultFn } = action;
 
     if (!types) return next(action);
 
@@ -69,23 +61,23 @@ export const restMiddleware = store => {
     }
 
     store.dispatch({ type: types.READY });
-    if (typeof onReady === 'function') onReady(store);
+    handleAction({ type: types.READY, store });
     eventEmitter.emit(types.READY);
 
     if (!shouldCallAPI(store.getState())) return;
 
     store.dispatch({ type: types.LOADING });
-    if (typeof onLoading === 'function') onLoading(store);
+    handleAction({ type: types.LOADING, store });
     eventEmitter.emit(types.LOADING);
 
     try {
       let { data } = await callAPI();
       store.dispatch({ type: types.SUCCESS, payload: data });
-      if (typeof onSuccess === 'function') onSuccess(store, data);
+      handleAction({ type: types.SUCCESS, payload: data, store });
       eventEmitter.emit(types.SUCCESS, data);
     } catch (e) {
       store.dispatch({ type: types.ERROR, payload: e.response.data });
-      if (typeof onError === 'function') onError(store, e.response.data);
+      handleAction({ type: types.ERROR, payload: e.response.data, store });
       eventEmitter.emit(types.ERROR, e.response.data);
     }
   };

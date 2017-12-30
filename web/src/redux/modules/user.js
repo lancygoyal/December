@@ -4,24 +4,36 @@ import { getActionTypes, getActionCreators, getReducer } from '../../utilities/r
 
 // Types
 export const LoginTypes = getActionTypes('LOGIN');
+export const RegisterTypes = getActionTypes('REGISTER');
 
 // Actions
 // export const LoginActions = getActionCreators(LoginTypes);
 
-export const login = e => {
-  e.preventDefault();
+export const login = data => {
   return {
     types: LoginTypes,
-    callAPI: () =>
-      RestClient.post('user/login', {
-        email: e.target.email.value,
-        password: e.target.password.value
-      }),
-    // onLoading: store => {},
-    onSuccess: ({ dispatch }, result) => {
-      dispatch(push('/'));
+    callAPI: () => RestClient.post('user/login', data),
+    handleAction: ({ type, payload, store }) => {
+      switch (type) {
+        case LoginTypes.SUCCESS:
+          store.dispatch(push('/'));
+          return;
+      }
     }
-    // onError: ({ dispatch }, result) => {}
+  };
+};
+
+export const register = data => {
+  return {
+    types: RegisterTypes,
+    callAPI: () => RestClient.post('user/register', data),
+    handleAction: ({ type, payload, store }) => {
+      switch (type) {
+        case RegisterTypes.SUCCESS:
+          store.dispatch(push('/signin'));
+          return;
+      }
+    }
   };
 };
 

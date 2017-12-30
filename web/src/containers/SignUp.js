@@ -1,51 +1,90 @@
 import React, { Component } from 'react';
+import { AppBar, Paper, RaisedButton, TextField, SelectField, MenuItem } from 'material-ui';
+import { connect } from 'react-redux';
+import { register } from '../redux/modules/user';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
+  state = {
+    fullName: '',
+    email: '',
+    password: '',
+    role: 'user'
+  };
+  handleClick = () => {
+    this.props.register(this.state);
+  };
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
-            <div className="login-panel panel panel-default">
-              <div className="panel-heading">
-                <h3 className="panel-title">Please Sign In</h3>
-              </div>
-              <div className="panel-body">
-                <form>
-                  <fieldset>
-                    <div className="form-group">
-                      <input
-                        className="form-control"
-                        placeholder="E-mail"
-                        name="email"
-                        type="email"
-                        autoFocus
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        className="form-control"
-                        placeholder="Password"
-                        name="password"
-                        type="password"
-                        value=""
-                      />
-                    </div>
-                    <div className="checkbox">
-                      <label>
-                        <input name="remember" type="checkbox" value="Remember Me" />Remember Me
-                      </label>
-                    </div>
-                    <a href="index.html" className="btn btn-lg btn-success btn-block">
-                      Login
-                    </a>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div style={styles.container}>
+        <Paper style={styles.form} zDepth={1}>
+          <TextField
+            style={styles.textInput}
+            hintText="Enter your Name"
+            floatingLabelText="Name"
+            onChange={(event, newValue) => this.setState({ fullName: newValue })}
+          />
+          <br />
+          <TextField
+            type="email"
+            style={styles.textInput}
+            hintText="Enter your Email"
+            floatingLabelText="Email"
+            onChange={(event, newValue) => this.setState({ email: newValue })}
+          />
+          <br />
+          <TextField
+            type="password"
+            hintText="Enter your Password"
+            floatingLabelText="Password"
+            onChange={(event, newValue) => this.setState({ password: newValue })}
+          />
+          <br />
+          <SelectField
+            floatingLabelText="Role"
+            fullWidth
+            value={this.state.role}
+            onChange={(event, index, newValue) => this.setState({ role: newValue })}
+          >
+            <MenuItem value="user" primaryText="User" />
+            <MenuItem value="business" primaryText="Business" />
+          </SelectField>
+          <RaisedButton
+            label="Sign Up"
+            fullWidth
+            secondary
+            style={styles.button}
+            onClick={this.handleClick}
+          />
+        </Paper>
       </div>
     );
   }
 }
+
+const styles = {
+  container: {
+    textAlign: 'center'
+  },
+  form: {
+    margin: 30,
+    padding: 20,
+    display: 'inline-block'
+  },
+  textInput: {
+    backgroundColor: 'white'
+  },
+  button: {
+    marginTop: 25,
+    marginBottom: 10
+  }
+};
+
+const mapStateToProps = state => ({
+  ...state.user
+});
+
+const mapDispatchToProps = {
+  register
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
