@@ -3,7 +3,9 @@ import { render } from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './utilities/global.js';
-import './index.css';
+import 'flexboxgrid';
+import '@fortawesome/fontawesome';
 
 render(<App />, document.getElementById('root'));
+
 registerServiceWorker();

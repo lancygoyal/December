@@ -17,19 +17,18 @@ class SignIn extends Component {
         <Paper style={styles.form} zDepth={1}>
           <TextField
             type="email"
-            style={styles.textInput}
+            fullWidth
             hintText="Enter your Email"
             floatingLabelText="Email"
             onChange={(event, newValue) => this.setState({ email: newValue })}
           />
-          <br />
           <TextField
             type="password"
+            fullWidth
             hintText="Enter your Password"
             floatingLabelText="Password"
             onChange={(event, newValue) => this.setState({ password: newValue })}
           />
-          <br />
           <RaisedButton
             label="Sign In"
             fullWidth
@@ -45,19 +44,26 @@ class SignIn extends Component {
 
 const styles = {
   container: {
-    textAlign: 'center'
+    minWidth: 320,
+    maxWidth: 400,
+    height: 'auto',
+    position: 'absolute',
+    top: '20%',
+    left: 0,
+    right: 0,
+    margin: 'auto'
   },
   form: {
-    margin: 30,
     padding: 20,
-    display: 'inline-block'
+    overflow: 'auto'
   },
-  textInput: {
-    backgroundColor: 'white'
+  buttonsDiv: {
+    textAlign: 'center',
+    padding: 10
   },
   button: {
-    marginTop: 25,
-    marginBottom: 10
+    float: 'right',
+    marginTop: 20
   }
 };
 
