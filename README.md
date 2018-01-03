@@ -31,17 +31,8 @@ npm start
     ├── main.js                # Main server file initiating hapi server
     └── package.json           # Node dependencies
 
-### Features
-
-- [x] User Can signin and signup.
-- [x] Non-profit can list items and Donate them.
-- [x] Donors can contribute.
-
 ### Todo
 
 - [x] Solution Architecture
-- [x] DB Models
 - [x] REST API Endpoints
-- [X] UI design (Swagger Integrated)
-- [x] Sample Running code
-- [x] Capacity Planning
+- [ ] UI design (WIP)
