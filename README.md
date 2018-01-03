@@ -4,11 +4,15 @@ Powered by Node and Hapi.
 
 ### Includes
 
-- Node 8.9.0
+- Node
 - Hapi v17
+- Socket.io
 - Swagger
 - Mongoose
+- React
+- Redux
 - ESLint
+- Husky
 
 ### Running it
 
@@ -36,3 +40,15 @@ npm start
 - [x] Solution Architecture
 - [x] REST API Endpoints
 - [ ] UI design (WIP)
+
+### Learn more
+
+- [Hapi](https://hapijs.com)
+- [Hapi Api Docs](https://github.com/hapijs/hapi/blob/master/API.md)
+- [Mongoose Guide](http://mongoosejs.com/docs/guide.html)
+- [Socket.io Docs](https://socket.io/docs/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Create React App](https://github.com/facebookincubator/create-react-app)
+- [React Router](https://github.com/ReactTraining/react-router)
+- [Es6 Cheatsheet](https://github.com/DrkSephy/es6-cheatsheet/blob/master/README.md)
