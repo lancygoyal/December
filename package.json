@@ -66,7 +66,7 @@
   },
   "main": "main.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -- main.js",
+    "start": "concurrently \"nodemon --exec babel-node -- main.js\" \"./MongoDB.sh\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "reinstall": "rm -rf node_modules && npm install",
     "precommit": "lint-staged",
