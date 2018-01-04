@@ -32,7 +32,13 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-react": "^7.5.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
     "loaders.css": "^0.1.2",
+    "prettier": "1.9.2",
     "redux-devtools-extension": "^2.13.2"
   },
   "scripts": {
@@ -40,8 +46,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "reinstall": "rm -rf node_modules && npm install",
-    "rp": "prettier --write \"**/*.json\" \"**/*.js\""
+    "ri": "rm -rf node_modules && npm install",
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "rp": "prettier --write \"**/*.json\" \"**/*.js\"",
+    "precommit": "npm run rp && lint-staged"
   },
   "author": "Lancy Goyal",
   "email": "i.lancygoyal@gmail.com",

@@ -4,11 +4,16 @@ module.exports = {
     commonjs: true,
     es6: true
   },
-  extends: ['standard', 'eslint:recommended', 'prettier'],
+  extends: ['eslint:recommended', 'prettier'],
   plugins: ['prettier'],
   parserOptions: {
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true
+    },
     sourceType: 'module'
   },
+  plugins: ['react'],
   rules: {
     indent: [2, 2],
     'linebreak-style': [2, 'unix'],
