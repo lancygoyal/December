@@ -4,12 +4,11 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
-.UserScreens {
-	width: 100vh;
+.Default {
 	height: 100vh;
 	color: #fff;
 	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
-	background-size: 400% 400%;
+	background-size: 500% 500%;
 	animation: Gradient 15s ease infinite;
 }
 

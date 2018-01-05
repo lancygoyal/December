@@ -9,7 +9,13 @@
     "type": "git",
     "url": "git+https://github.com/lancygoyal/december.git"
   },
-  "keywords": ["node", "hapi", "js", "socket", "mongo"],
+  "keywords": [
+    "node",
+    "hapi",
+    "js",
+    "socket",
+    "mongo"
+  ],
   "bugs": {
     "url": "https://github.com/lancygoyal/december/issues"
   },

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
+import EnRoute from '../components/EnRoute';
 import SignIn from '../containers/SignIn';
 import SignUp from '../containers/SignUp';
 import App from '../containers/App';
@@ -8,58 +9,78 @@ import FormPage from '../containers/FormPage';
 import TablePage from '../containers/TablePage';
 import NotFoundPage from '../containers/NotFoundPage.js';
 
-const requireAuth = store => {
+const auth = store => {
   return store.getState().user.isLoggedIn;
 };
 
-const PublicLayout = ({ component: Component }) => {
-  return (
-    <div className="UserScreens">
-      <Component />
-    </div>
-  );
-};
+const PublicLayout = ({ component: Component }) => (
+  <div className="Default">
+    <Component />
+  </div>
+);
 
-const PrivateLayout = ({ component: Component }) => {
-  return (
-    <App>
-      <Component />
-    </App>
-  );
-};
-
-const PublicRoute = ({ component, ...rest }) => {
-  return <Route {...rest} render={props => <PublicLayout component={component} {...props} />} />;
-};
-
-const PrivateRoute = ({ component, store, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      requireAuth(store) ? (
-        <PrivateLayout component={component} {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/signin',
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
+const DashboardLayout = ({ component: Component }) => (
+  <App>
+    <Component />
+  </App>
 );
 
 export default store => {
   return (
     <Switch>
-      <PublicRoute exact path="/signin" component={SignIn} />
-      <PublicRoute exact path="/signup" component={SignUp} />
-      <PrivateRoute exact path="/" component={Dashboard} store={store} />
-      <PrivateRoute exact path="/dashboard" component={Dashboard} store={store} />
-      <PrivateRoute exact path="/form" component={FormPage} store={store} />
-      <PrivateRoute exact path="/table" component={TablePage} store={store} />
-      <Route component={NotFoundPage} />
+      <EnRoute
+        exact
+        path="/signin"
+        component={SignIn}
+        layout={PublicLayout}
+        type="user"
+        auhtHandler={auth}
+        to="/dashboard"
+        store={store}
+      />
+      <EnRoute
+        exact
+        path="/signup"
+        component={SignUp}
+        layout={PublicLayout}
+        type="user"
+        auhtHandler={auth}
+        to="/dashboard"
+        store={store}
+      />
+      <EnRoute
+        exact
+        path="/"
+        component={Dashboard}
+        layout={DashboardLayout}
+        auhtHandler={auth}
+        store={store}
+      />
+      <EnRoute
+        exact
+        path="/dashboard"
+        component={Dashboard}
+        layout={DashboardLayout}
+        auhtHandler={auth}
+        store={store}
+      />
+      <EnRoute
+        exact
+        path="/form"
+        component={FormPage}
+        layout={DashboardLayout}
+        auhtHandler={auth}
+        store={store}
+      />
+      <EnRoute
+        exact
+        path="/table"
+        component={TablePage}
+        layout={DashboardLayout}
+        auhtHandler={auth}
+        store={store}
+      />
+      <EnRoute component={NotFoundPage} type="public" layout={PublicLayout} />
     </Switch>
   );
 };

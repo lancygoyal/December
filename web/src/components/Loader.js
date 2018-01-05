@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactLoader from 'react-loaders';
 
-const Loader = ({ loading }) => {
+export default ({ loading = true }) => {
   return (
     <div>
       <div
@@ -21,16 +21,6 @@ const Loader = ({ loading }) => {
     </div>
   );
 };
-
-Loader.propTypes = {
-  loading: PropTypes.bool
-};
-
-Loader.defaultProps = {
-  loading: true
-};
-
-export default Loader;
 
 /*
 .app_Overley {
