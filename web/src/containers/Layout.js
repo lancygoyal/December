@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import LeftDrawer from '../components/LeftDrawer';
 import withWidth, { SMALL } from 'material-ui/utils/withWidth';
 import Data from '../constants/data';
-import { toggle, logout } from '../redux/modules/user';
+import { toggle, logout } from '../redux/modules/app';
 
 const Layout = props => {
   const { navDrawerOpen } = props;
@@ -39,7 +39,7 @@ Layout.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  ...state.user
+  ...state.app
 });
 
 const mapDispatchToProps = {

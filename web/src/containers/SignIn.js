@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Paper, RaisedButton, TextField } from 'material-ui';
+import { Paper, FlatButton, RaisedButton, TextField } from 'material-ui';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../redux/modules/user';
+import { login } from '../redux/modules/app';
 
 class SignIn extends Component {
   state = {
@@ -37,6 +38,11 @@ class SignIn extends Component {
             onClick={this.handleClick}
           />
         </Paper>
+        <FlatButton
+          label="Register New Account"
+          fullWidth
+          containerElement={<Link to="/signup" />}
+        />
       </div>
     );
   }
@@ -66,6 +72,10 @@ const styles = {
     marginTop: 20
   }
 };
+
+// const mapStateToProps = (state) => ({
+//   ...state.app
+// });
 
 const mapDispatchToProps = {
   login

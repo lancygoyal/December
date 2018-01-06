@@ -60,4 +60,9 @@ LeftDrawer.propTypes = {
   menus: PropTypes.array
 };
 
+LeftDrawer.defaultProps = {
+  navDrawerOpen: true,
+  fullName: 'admin'
+};
+
 export default LeftDrawer;

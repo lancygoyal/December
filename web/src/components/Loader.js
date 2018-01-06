@@ -3,39 +3,24 @@ import ReactLoader from 'react-loaders';
 
 export default ({ loading = true }) => {
   return (
-    <div>
-      <div
-        style={{
-          display: 'block',
-          fontSize: '0',
-          position: 'fixed',
-          zIndex: '9999',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}
-      >
-        {loading && <ReactLoader type="ball-clip-rotate-multiple" active />}
+    loading && (
+      <div>
+        <div
+          style={{
+            height: '50vh',
+            width: '50vw',
+            position: 'absolute',
+            zIndex: '10',
+            top: 0,
+            left: 0,
+            paddingTop: '50vh',
+            paddingLeft: '50vw',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+          }}
+        >
+          <ReactLoader type="pacman" active />
+        </div>
       </div>
-    </div>
+    )
   );
 };
-
-/*
-.app_Overley {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    background-color: rgba(255, 255, 255, 0.5);
-    /*overflow: hidden;
-    overflow-y: hidden;
-    overflow-x: hidden;*/
-/*-webkit-filter: blur(1px);
-    filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
-    -ms-filter: blur(1px);*/
-// }

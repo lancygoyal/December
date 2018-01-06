@@ -5,6 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import './utilities/global.js';
 import 'flexboxgrid';
 import '@fortawesome/fontawesome';
+import 'loaders.css';
 
 render(<App />, document.getElementById('root'));
 

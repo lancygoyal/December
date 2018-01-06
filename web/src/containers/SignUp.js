@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Paper, RaisedButton, TextField, SelectField, MenuItem } from 'material-ui';
+import { Paper, FlatButton, RaisedButton, TextField, SelectField, MenuItem } from 'material-ui';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register } from '../redux/modules/user';
+import { register } from '../redux/modules/app';
 
 class SignUp extends Component {
   state = {
@@ -57,6 +58,7 @@ class SignUp extends Component {
             onClick={this.handleClick}
           />
         </Paper>
+        <FlatButton label="Go to Sign In" fullWidth containerElement={<Link to="/signin" />} />
       </div>
     );
   }

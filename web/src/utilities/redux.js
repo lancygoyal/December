@@ -1,15 +1,20 @@
 import eventEmitter from './event';
 
-export const restTypes = ['READY', 'LOADING', 'SUCCESS', 'ERROR'];
+const DEFAULT = 'DEFAULT',
+  READY = 'READY',
+  LOADING = 'LOADING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR';
 
-export const getActionType = (action = 'redux', type = 'default') => ({
-  [type.toUpperCase()]: `@${action}/${type}`.toUpperCase()
-});
+export const restTypes = [READY, LOADING, SUCCESS, ERROR];
+
+export const getActionType = (action = 'redux', type = DEFAULT) =>
+  `@${action}/${type}`.toUpperCase();
 
 export const getActionTypes = (action, types = restTypes) => {
   return types.reduce(
     (result, type) => ({
-      ...getActionType(action, type),
+      [type.toUpperCase()]: getActionType(action, type),
       ...result
     }),
     {}
@@ -39,48 +44,51 @@ export const getReducer = (initialState, handlers) => {
   };
 };
 
-export const restMiddleware = store => {
-  return next => async action => {
-    const defaultFn = () => true;
-    const { types, callAPI, shouldCallAPI = defaultFn, handleAction = defaultFn } = action;
+export const AppLoad = getActionType(LOADING);
 
-    if (!types) return next(action);
+export const restMiddleware = store => next => async action => {
+  const defaultFn = () => true;
+  const { types, callAPI, shouldCallAPI = defaultFn, handleAction = defaultFn } = action;
 
-    const typeKeys = Object.keys(types);
+  if (!types) return next(action);
 
-    if (
-      !Array.isArray(typeKeys) ||
-      typeKeys.length <= 3 ||
-      !typeKeys.every(type => typeof type === 'string')
-    ) {
-      throw new Error('Expected an array of three string types.');
-    }
+  const typeKeys = Object.keys(types);
 
-    if (typeof callAPI !== 'function') {
-      throw new Error('Expected callAPI to be a function.');
-    }
+  if (
+    !Array.isArray(typeKeys) ||
+    typeKeys.length <= 3 ||
+    !typeKeys.every(type => typeof type === 'string')
+  ) {
+    throw new Error('Expected an array of three string types.');
+  }
 
-    store.dispatch({ type: types.READY });
-    handleAction({ type: types.READY, store });
-    eventEmitter.emit(types.READY);
+  if (typeof callAPI !== 'function') {
+    throw new Error('Expected callAPI to be a function.');
+  }
 
-    if (!shouldCallAPI(store.getState())) return;
+  store.dispatch({ type: types.READY });
+  handleAction({ type: types.READY, store });
+  eventEmitter.emit(types.READY, { type: types.READY, store });
 
-    store.dispatch({ type: types.LOADING });
-    handleAction({ type: types.LOADING, store });
-    eventEmitter.emit(types.LOADING);
+  if (!shouldCallAPI(store.getState())) return;
 
-    try {
-      let { data } = await callAPI();
-      store.dispatch({ type: types.SUCCESS, payload: data });
-      handleAction({ type: types.SUCCESS, payload: data, store });
-      eventEmitter.emit(types.SUCCESS, data);
-    } catch (e) {
-      store.dispatch({ type: types.ERROR, payload: e.response.data });
-      handleAction({ type: types.ERROR, payload: e.response.data, store });
-      eventEmitter.emit(types.ERROR, e.response.data);
-    }
-  };
+  store.dispatch({ type: types.LOADING });
+  store.dispatch({ type: AppLoad, payload: true });
+  handleAction({ type: types.LOADING, store });
+  eventEmitter.emit(types.LOADING, { type: types.LOADING, store });
+
+  try {
+    let { data } = await callAPI();
+    store.dispatch({ type: types.SUCCESS, payload: data });
+    store.dispatch({ type: AppLoad, payload: false });
+    handleAction({ type: types.SUCCESS, payload: data, store });
+    eventEmitter.emit(types.SUCCESS, { type: types.SUCCESS, payload: data, store });
+  } catch (e) {
+    store.dispatch({ type: types.ERROR, payload: e.response.data });
+    store.dispatch({ type: AppLoad, payload: false });
+    handleAction({ type: types.ERROR, payload: e.response.data, store });
+    eventEmitter.emit(types.ERROR, { type: types.ERROR, payload: e.response.data, store });
+  }
 };
 
 export const on = (eventName, listener) => {
@@ -91,5 +99,5 @@ export const on = (eventName, listener) => {
 };
 
 export const auth = store => {
-  return store.getState().user.isLoggedIn ? store.getState().user.data.loginToken : null;
+  return store.getState().app.isLoggedIn ? store.getState().app.data.loginToken : null;
 };
