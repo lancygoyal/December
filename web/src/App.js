@@ -9,9 +9,12 @@ import createHistory from 'history/createBrowserHistory';
 import Routes from './config/routes';
 import Loader from './components/Loader';
 import configureStore from './config/configureStore';
+import { configureRestClient } from './utilities/rest';
 
 const history = createHistory();
 const { persistor, store } = configureStore(history);
+
+configureRestClient(store);
 
 export default () => {
   return (

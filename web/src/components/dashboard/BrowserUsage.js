@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import Avatar from 'material-ui/Avatar';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
-import GlobalStyles from '../../styles';
+import GlobalStyles from '../../constants/styles';
 
 const BrowserUsage = props => {
   const styles = {

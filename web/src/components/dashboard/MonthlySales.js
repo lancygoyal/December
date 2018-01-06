@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import { white, pink600, pink500 } from 'material-ui/styles/colors';
 import { BarChart, Bar, ResponsiveContainer, XAxis } from 'recharts';
-import GlobalStyles from '../../styles';
+import GlobalStyles from '../../constants/styles';
 
 const MonthlySales = props => {
   const styles = {

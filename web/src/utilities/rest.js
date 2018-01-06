@@ -1,11 +1,8 @@
 import querystring from 'query-string';
 import axios from 'axios';
+import { auth } from './redux';
 
-// axios.defaults.baseURL = '/api/v1/';
-// axios.defaults.headers.common['Content-Type'] = 'application/json';
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-
-export default axios.create({
+let instance = axios.create({
   baseURL: '/api/v1/',
   // timeout: 1000,
   headers: { 'Content-Type': 'application/json' },
@@ -13,3 +10,13 @@ export default axios.create({
     return querystring.stringify(params, { arrayFormat: 'brackets' });
   }
 });
+
+export const configureRestClient = store => {
+  store.subscribe(() => {
+    let token = auth(store);
+    if (token) instance.defaults.headers.common['Authorization'] = token;
+    else delete instance.defaults.headers.common['Authorization'];
+  });
+};
+
+export default instance;

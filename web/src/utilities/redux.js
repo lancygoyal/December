@@ -89,3 +89,7 @@ export const on = (eventName, listener) => {
     eventEmitter.removeListener(eventName, listener);
   };
 };
+
+export const auth = store => {
+  return store.getState().user.isLoggedIn ? store.getState().user.data.loginToken : null;
+};

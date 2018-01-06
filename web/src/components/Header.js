@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import ViewModule from 'material-ui/svg-icons/action/view-module';
+import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import { white } from 'material-ui/styles/colors';
 import SearchBox from './SearchBox';
 
@@ -46,15 +47,13 @@ class Header extends React.Component {
                 color={white}
                 iconButtonElement={
                   <IconButton>
-                    <ViewModule color={white} />
+                    <PermIdentity color={white} />
                   </IconButton>
                 }
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <MenuItem key={1} primaryText="Application 1" />
-                <MenuItem key={2} primaryText="Application 2" />
-                <MenuItem key={3} primaryText="Application 3" />
+                <MenuItem primaryText="Sign out" onClick={this.props.onLogoutClick} />
               </IconMenu>
               <IconMenu
                 color={white}
@@ -66,7 +65,9 @@ class Header extends React.Component {
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <MenuItem primaryText="Sign out" containerElement={<Link to="/signin" />} />
+                <MenuItem key={1} primaryText="Application 1" />
+                <MenuItem key={2} primaryText="Application 2" />
+                <MenuItem key={3} primaryText="Application 3" />
               </IconMenu>
             </div>
           }

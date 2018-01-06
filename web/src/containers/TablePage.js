@@ -13,7 +13,7 @@ import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { pink500, grey200, grey500 } from 'material-ui/styles/colors';
 import PageBase from '../components/PageBase';
-import Data from '../data';
+import Data from '../constants/data';
 
 const TablePage = () => {
   const styles = {

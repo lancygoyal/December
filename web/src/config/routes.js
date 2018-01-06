@@ -7,11 +7,8 @@ import App from '../containers/App';
 import Dashboard from '../containers/Dashboard';
 import FormPage from '../containers/FormPage';
 import TablePage from '../containers/TablePage';
-import NotFoundPage from '../containers/NotFoundPage.js';
-
-const auth = store => {
-  return store.getState().user.isLoggedIn;
-};
+import NotFoundPage from '../containers/NotFoundPage';
+import { auth } from '../utilities/redux';
 
 const PublicLayout = ({ component: Component }) => (
   <div className="Default">

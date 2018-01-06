@@ -1,13 +1,15 @@
 import { push } from 'react-router-redux';
 import RestClient from '../../utilities/rest';
-import { getActionTypes, getActionCreators, getReducer } from '../../utilities/redux';
+import { getActionType, getActionTypes, getActionCreator, getReducer } from '../../utilities/redux';
 
 // Types
+export const NavToggle = getActionTypes('TOGGLE');
 export const LoginTypes = getActionTypes('LOGIN');
 export const RegisterTypes = getActionTypes('REGISTER');
+export const LogoutTypes = getActionTypes('LOGOUT');
 
 // Actions
-// export const LoginActions = getActionCreators(LoginTypes);
+export const toggle = getActionCreator(NavToggle);
 
 export const login = data => {
   return {
@@ -37,21 +39,36 @@ export const register = data => {
   };
 };
 
-const initialState = {
-  isLoggedIn: false
+export const logout = () => {
+  return {
+    types: LogoutTypes,
+    callAPI: () => RestClient.put('user/logout'),
+    handleAction: ({ type, payload, store }) => {
+      switch (type) {
+        case LogoutTypes.SUCCESS:
+          store.dispatch(push('/signin'));
+          return;
+      }
+    }
+  };
 };
 
-// Reducers
+const initialState = {
+  isLoggedIn: false,
+  navDrawerOpen: true
+};
+
+// Reducer
 export default getReducer(initialState, {
-  [LoginTypes.LOADING]: (state, { type, payload }) => ({
-    isLoggedIn: false,
-    ...payload
+  [NavToggle]: (state, { type, payload }) => ({
+    ...state,
+    navDrawerOpen: !state.navDrawerOpen
   }),
   [LoginTypes.SUCCESS]: (state, { type, payload }) => ({
+    ...state,
     isLoggedIn: true,
     ...payload
   }),
-  [LoginTypes.ERROR]: (state, { type, payload }) => ({
-    isLoggedIn: false
-  })
+  [LoginTypes.ERROR]: (state, { type, payload }) => initialState,
+  [LogoutTypes.SUCCESS]: (state, { type, payload }) => initialState
 });

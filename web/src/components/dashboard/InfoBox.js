@@ -6,7 +6,7 @@ import { typography } from 'material-ui/styles';
 
 export default class InfoBox extends React.Component {
   static propTypes = {
-    Icon: PropTypes.any, // eslint-disable-line
+    Icon: PropTypes.any,
     color: PropTypes.string,
     title: PropTypes.string,
     value: PropTypes.string

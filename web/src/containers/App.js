@@ -1,34 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import LeftDrawer from '../components/LeftDrawer';
 import withWidth, { LARGE, SMALL } from 'material-ui/utils/withWidth';
-import ThemeDefault from '../theme-default';
-import Data from '../data';
+import ThemeDefault from '../constants/theme-default';
+import Data from '../constants/data';
+import { toggle, logout } from '../redux/modules/user';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navDrawerOpen: true
-    };
-  }
+  handleChangeRequestNavDrawer = () => {
+    this.props.toggle();
+  };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.width !== nextProps.width) {
-      this.setState({ navDrawerOpen: nextProps.width === LARGE });
-    }
-  }
-
-  handleChangeRequestNavDrawer() {
-    this.setState({
-      navDrawerOpen: !this.state.navDrawerOpen
-    });
-  }
+  logout = () => {
+    this.props.logout();
+  };
 
   render() {
-    let { navDrawerOpen } = this.state;
+    let { navDrawerOpen } = this.props;
     const paddingLeftDrawerOpen = 236;
 
     const styles = {
@@ -46,10 +37,11 @@ class App extends React.Component {
         <div>
           <Header
             styles={styles.header}
-            handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}
+            handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer}
+            onLogoutClick={this.logout}
           />
 
-          <LeftDrawer navDrawerOpen={navDrawerOpen} menus={Data.menus} username="User Admin" />
+          <LeftDrawer navDrawerOpen={navDrawerOpen} menus={Data.menus} {...this.props.data} />
 
           <div style={styles.container}>{this.props.children}</div>
         </div>
@@ -63,4 +55,13 @@ App.propTypes = {
   width: PropTypes.number
 };
 
-export default withWidth()(App);
+const mapStateToProps = state => ({
+  ...state.user
+});
+
+const mapDispatchToProps = {
+  toggle,
+  logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(App));

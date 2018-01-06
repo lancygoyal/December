@@ -56,7 +56,7 @@ const LeftDrawer = props => {
           size={50}
           style={styles.avatar.icon}
         />
-        <span style={styles.avatar.span}>{props.username}</span>
+        <span style={styles.avatar.span}>{props.fullName.capitalizeEachLetter()}</span>
       </div>
       <div>
         {props.menus.map((menu, index) => (
@@ -76,7 +76,7 @@ const LeftDrawer = props => {
 LeftDrawer.propTypes = {
   navDrawerOpen: PropTypes.bool,
   menus: PropTypes.array,
-  username: PropTypes.string
+  fullName: PropTypes.string
 };
 
 export default LeftDrawer;

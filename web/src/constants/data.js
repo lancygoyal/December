@@ -8,12 +8,11 @@ import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 
-const data = {
+export default {
   menus: [
     { text: 'DashBoard', icon: <Assessment />, link: '/dashboard' },
     { text: 'Form Page', icon: <Web />, link: '/form' },
-    { text: 'Table Page', icon: <GridOn />, link: '/table' },
-    { text: 'Log out', icon: <PermIdentity />, link: '/signin' }
+    { text: 'Table Page', icon: <GridOn />, link: '/table' }
   ],
   tablePage: {
     items: [
@@ -64,5 +63,3 @@ const data = {
     ]
   }
 };
-
-export default data;
