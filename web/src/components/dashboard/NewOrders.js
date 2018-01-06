@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
+import { Paper, Subheader } from 'material-ui';
 import { white, purple600, purple500 } from 'material-ui/styles/colors';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
-import { typography } from 'material-ui/styles';
+import GlobalStyles from '../../constants/styles';
 
 const NewOrders = props => {
   const styles = {
@@ -16,17 +16,14 @@ const NewOrders = props => {
       padding: '5px 15px 0 15px'
     },
     header: {
-      fontSize: 24,
-      fontWeight: typography.fontWeightLight,
       color: white,
-      backgroundColor: purple600,
-      padding: 10
+      backgroundColor: purple600
     }
   };
 
   return (
     <Paper style={styles.paper}>
-      <div style={{ ...styles.header }}>New Orders</div>
+      <Subheader style={{ ...GlobalStyles.title, ...styles.header }}>New Orders</Subheader>
       <div style={styles.div}>
         <ResponsiveContainer>
           <LineChart data={props.data}>

@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react';
 import { cyan600, pink600, purple600, orange600 } from 'material-ui/styles/colors';
 import Assessment from 'material-ui/svg-icons/action/assessment';
 import Face from 'material-ui/svg-icons/action/face';
@@ -14,64 +12,48 @@ import RecentlyProducts from '../components/dashboard/RecentlyProducts';
 import globalStyles from '../constants/styles';
 import Data from '../constants/data';
 
-class Dashboard extends Component {
-  componentWillMount() {
-    // console.log('Dashboard', this.props);
-    // if (!this.props.isLoggedIn) {
-    //   window.location.href = '/signin';
-    // }
-  }
-  render() {
-    return (
-      <div>
-        <h3 style={globalStyles.navigation}>Application / Dashboard</h3>
-
-        <div className="row">
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <InfoBox Icon={ShoppingCart} color={pink600} title="Total Profit" value="1500k" />
-          </div>
-
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <InfoBox Icon={Assessment} color={purple600} title="Sales" value="460" />
-          </div>
-        </div>
-        <br />
-        <div className="row">
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <InfoBox Icon={Face} color={orange600} title="New Members" value="248" />
-          </div>
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <InfoBox Icon={ThumbUp} color={cyan600} title="Likes" value="4231" />
-          </div>
-        </div>
-        <br />
-
-        <div className="row">
-          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
-            <NewOrders data={Data.dashBoardPage.newOrders} />
-          </div>
-
-          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
-            <MonthlySales data={Data.dashBoardPage.monthlySales} />
-          </div>
+export default props => {
+  return (
+    <div>
+      <h3 style={globalStyles.navigation}>Application / Dashboard</h3>
+      <div className="row">
+        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
+          <NewOrders data={Data.dashBoardPage.newOrders} />
         </div>
 
-        <div className="row">
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <RecentlyProducts data={Data.dashBoardPage.recentProducts} />
-          </div>
-
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-            <BrowserUsage data={Data.dashBoardPage.browserUsage} />
-          </div>
+        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
+          <MonthlySales data={Data.dashBoardPage.monthlySales} />
         </div>
       </div>
-    );
-  }
-}
+      <br />
+      <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <InfoBox Icon={ShoppingCart} color={pink600} title="Total Profit" value="1500k" />
+        </div>
 
-const mapStateToProps = state => ({
-  ...state.user
-});
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <InfoBox Icon={Assessment} color={purple600} title="Sales" value="460" />
+        </div>
+      </div>
+      <br />
+      <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <InfoBox Icon={Face} color={orange600} title="New Members" value="248" />
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <InfoBox Icon={ThumbUp} color={cyan600} title="Likes" value="4231" />
+        </div>
+      </div>
+      <br />
+      <div className="row">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <RecentlyProducts data={Data.dashBoardPage.recentProducts} />
+        </div>
 
-export default connect(mapStateToProps)(Dashboard);
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
+          <BrowserUsage data={Data.dashBoardPage.browserUsage} />
+        </div>
+      </div>
+    </div>
+  );
+};

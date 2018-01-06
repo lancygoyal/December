@@ -9,13 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/lancygoyal/december.git"
   },
-  "keywords": [
-    "node",
-    "hapi",
-    "js",
-    "socket",
-    "mongo"
-  ],
+  "keywords": ["node", "hapi", "js", "socket", "mongo"],
   "bugs": {
     "url": "https://github.com/lancygoyal/december/issues"
   },
@@ -72,7 +66,8 @@
   },
   "main": "main.js",
   "scripts": {
-    "start": "concurrently \"nodemon --exec babel-node -- main.js\" \"./MongoDB.sh\"",
+    "start": "nodemon --exec babel-node -- main.js",
+    "sh": "concurrently \"nodemon --exec babel-node -- main.js\" \"./MongoDB.sh\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ri": "rm -rf node_modules && npm install",
     "lint": "./node_modules/.bin/eslint . --ext .js",

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import EnRoute from '../components/EnRoute';
 import SignIn from '../containers/SignIn';
 import SignUp from '../containers/SignUp';
-import App from '../containers/App';
+import Layout from '../containers/Layout';
 import Dashboard from '../containers/Dashboard';
 import FormPage from '../containers/FormPage';
 import TablePage from '../containers/TablePage';
@@ -17,9 +17,9 @@ const PublicLayout = ({ component: Component }) => (
 );
 
 const DashboardLayout = ({ component: Component }) => (
-  <App>
+  <Layout>
     <Component />
-  </App>
+  </Layout>
 );
 
 export default store => {

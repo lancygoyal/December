@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Paper, RaisedButton, TextField } from 'material-ui';
+import { Paper, RaisedButton, TextField } from 'material-ui';
 import { connect } from 'react-redux';
 import { login } from '../redux/modules/user';
 
@@ -67,12 +67,8 @@ const styles = {
   }
 };
 
-const mapStateToProps = state => ({
-  ...state.user
-});
-
 const mapDispatchToProps = {
   login
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

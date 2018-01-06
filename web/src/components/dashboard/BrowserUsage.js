@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
+import { Avatar, List, ListItem, Subheader, Paper } from 'material-ui';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import Avatar from 'material-ui/Avatar';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
 import GlobalStyles from '../../constants/styles';
 
 const BrowserUsage = props => {
@@ -24,7 +21,7 @@ const BrowserUsage = props => {
 
   return (
     <Paper style={styles.paper}>
-      <span style={GlobalStyles.title}>Browser Usage</span>
+      <Subheader style={GlobalStyles.title}>Browser Usage</Subheader>
 
       <div style={GlobalStyles.clear} />
 

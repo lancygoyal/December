@@ -10,7 +10,7 @@ import { grey400 } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import PageBase from '../components/PageBase';
 
-const FormPage = () => {
+export default () => {
   const styles = {
     toggleDiv: {
       maxWidth: 300,
@@ -64,5 +64,3 @@ const FormPage = () => {
     </PageBase>
   );
 };
-
-export default FormPage;

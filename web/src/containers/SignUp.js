@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Paper, RaisedButton, TextField, SelectField, MenuItem } from 'material-ui';
+import { Paper, RaisedButton, TextField, SelectField, MenuItem } from 'material-ui';
 import { connect } from 'react-redux';
 import { register } from '../redux/modules/user';
 
@@ -87,12 +87,8 @@ const styles = {
   }
 };
 
-const mapStateToProps = state => ({
-  ...state.user
-});
-
 const mapDispatchToProps = {
   register
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(null, mapDispatchToProps)(SignUp);

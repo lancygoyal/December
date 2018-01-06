@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactLoader from 'react-loaders';
 
 export default ({ loading = true }) => {

@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import TextField from 'material-ui/TextField';
-import { white, blue500 } from 'material-ui/styles/colors';
-import IconButton from 'material-ui/IconButton';
+import { IconButton, TextField } from 'material-ui';
+import { white } from 'material-ui/styles/colors';
 import Search from 'material-ui/svg-icons/action/search';
 
-const SearchBox = () => {
+export default () => {
   const styles = {
     iconButton: {
       float: 'left',
@@ -13,30 +11,26 @@ const SearchBox = () => {
     },
     textField: {
       color: white,
-      backgroundColor: blue500,
-      borderRadius: 2,
-      height: 35
+      height: 30
     },
     inputStyle: {
       color: white,
       paddingLeft: 5
     },
     hintStyle: {
-      height: 16,
+      height: 20,
       paddingLeft: 5,
       color: white
     }
   };
 
   return (
-    <div>
+    <div style={{ float: 'right' }}>
       <IconButton style={styles.iconButton}>
         <Search color={white} />
       </IconButton>
       <TextField
         hintText="Search..."
-        underlineShow={false}
-        fullWidth={true}
         style={styles.textField}
         inputStyle={styles.inputStyle}
         hintStyle={styles.hintStyle}
@@ -44,5 +38,3 @@ const SearchBox = () => {
     </div>
   );
 };
-
-export default SearchBox;

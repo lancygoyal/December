@@ -12,7 +12,8 @@ export default {
   title: {
     fontSize: 24,
     fontWeight: typography.fontWeightLight,
-    marginBottom: 20
+    color: grey600,
+    height: 50
   },
   paper: {
     padding: 30

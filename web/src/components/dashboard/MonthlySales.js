@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
+import { Paper, Subheader } from 'material-ui';
 import { white, pink600, pink500 } from 'material-ui/styles/colors';
 import { BarChart, Bar, ResponsiveContainer, XAxis } from 'recharts';
 import GlobalStyles from '../../constants/styles';
@@ -12,21 +12,18 @@ const MonthlySales = props => {
       height: 150
     },
     div: {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '95%',
-      height: 85
+      height: 95,
+      padding: '5px 15px 0 15px'
     },
     header: {
       color: white,
-      backgroundColor: pink500,
-      padding: 10
+      backgroundColor: pink500
     }
   };
 
   return (
     <Paper style={styles.paper}>
-      <div style={{ ...GlobalStyles.title, ...styles.header }}>Monthly Sales</div>
+      <Subheader style={{ ...GlobalStyles.title, ...styles.header }}>Monthly Sales</Subheader>
       <div style={styles.div}>
         <ResponsiveContainer>
           <BarChart data={props.data}>

@@ -1,35 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Drawer from 'material-ui/Drawer';
-import { spacing, typography } from 'material-ui/styles';
-import { white, blue600 } from 'material-ui/styles/colors';
-import MenuItem from 'material-ui/MenuItem';
+import { Avatar, Drawer, MenuItem } from 'material-ui';
+import { white } from 'material-ui/styles/colors';
 import { Link } from 'react-router-dom';
-import Avatar from 'material-ui/Avatar';
 
 const LeftDrawer = props => {
   let { navDrawerOpen } = props;
 
   const styles = {
-    logo: {
-      cursor: 'pointer',
-      fontSize: 22,
-      color: typography.textFullWhite,
-      lineHeight: `${spacing.desktopKeylineIncrement}px`,
-      fontWeight: typography.fontWeightLight,
-      backgroundColor: blue600,
-      paddingLeft: 40,
-      height: 56
-    },
     menuItem: {
       color: white,
       fontSize: 14
     },
     avatar: {
       div: {
-        padding: '15px 0 20px 15px',
+        padding: '30px 0 20px 20px',
         backgroundImage: 'url(/material_bg.png)',
-        height: 45
+        height: 65
       },
       icon: {
         float: 'left',
@@ -49,13 +36,8 @@ const LeftDrawer = props => {
 
   return (
     <Drawer docked={true} open={navDrawerOpen}>
-      <div style={styles.logo}>Material Admin</div>
       <div style={styles.avatar.div}>
-        <Avatar
-          src="http://www.material-ui.com/images/uxceo-128.jpg"
-          size={50}
-          style={styles.avatar.icon}
-        />
+        <Avatar src="/profile-placeholder.png" size={50} style={styles.avatar.icon} />
         <span style={styles.avatar.span}>{props.fullName.capitalizeEachLetter()}</span>
       </div>
       <div>
@@ -75,8 +57,7 @@ const LeftDrawer = props => {
 
 LeftDrawer.propTypes = {
   navDrawerOpen: PropTypes.bool,
-  menus: PropTypes.array,
-  fullName: PropTypes.string
+  menus: PropTypes.array
 };
 
 export default LeftDrawer;

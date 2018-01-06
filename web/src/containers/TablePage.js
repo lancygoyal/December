@@ -15,7 +15,7 @@ import { pink500, grey200, grey500 } from 'material-ui/styles/colors';
 import PageBase from '../components/PageBase';
 import Data from '../constants/data';
 
-const TablePage = () => {
+export default () => {
   const styles = {
     floatingActionButton: {
       margin: 0,
@@ -93,5 +93,3 @@ const TablePage = () => {
     </PageBase>
   );
 };
-
-export default TablePage;

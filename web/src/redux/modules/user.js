@@ -3,7 +3,7 @@ import RestClient from '../../utilities/rest';
 import { getActionType, getActionTypes, getActionCreator, getReducer } from '../../utilities/redux';
 
 // Types
-export const NavToggle = getActionTypes('TOGGLE');
+export const NavToggle = getActionType('TOGGLE');
 export const LoginTypes = getActionTypes('LOGIN');
 export const RegisterTypes = getActionTypes('REGISTER');
 export const LogoutTypes = getActionTypes('LOGOUT');
@@ -20,6 +20,8 @@ export const login = data => {
         case LoginTypes.SUCCESS:
           store.dispatch(push('/'));
           return;
+        default:
+          return;
       }
     }
   };
@@ -34,6 +36,8 @@ export const register = data => {
         case RegisterTypes.SUCCESS:
           store.dispatch(push('/signin'));
           return;
+        default:
+          return;
       }
     }
   };
@@ -47,6 +51,8 @@ export const logout = () => {
       switch (type) {
         case LogoutTypes.SUCCESS:
           store.dispatch(push('/signin'));
+          return;
+        default:
           return;
       }
     }
