@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render } from 'react-snapshot';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './utilities/global.js';

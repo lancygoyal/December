@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Paper, FlatButton, RaisedButton, TextField } from 'material-ui';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { login } from '../redux/modules/app';
 
@@ -15,6 +16,9 @@ class SignIn extends Component {
   render() {
     return (
       <div style={styles.container}>
+        <Helmet>
+          <title>Sign In</title>
+        </Helmet>
         <Paper style={styles.form} zDepth={1}>
           <TextField
             type="email"

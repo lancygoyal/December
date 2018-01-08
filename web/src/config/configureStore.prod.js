@@ -5,7 +5,7 @@ import { routerMiddleware } from 'react-router-redux';
 import { restMiddleware } from '../utilities/redux';
 import reducer from '../redux';
 
-export default () => {
+export default history => {
   const store = createStore(
     reducer,
     compose(applyMiddleware(thunk, routerMiddleware(history), restMiddleware))
