@@ -39,7 +39,7 @@ npm start
 
 - [x] Solution Architecture
 - [x] REST API Endpoints
-- [ ] UI design (WIP)
+- [x] UI design (WIP)
 
 ### Learn more
 
